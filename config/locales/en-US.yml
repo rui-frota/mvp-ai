@@ -1,0 +1,44 @@
+en-US:
+  activerecord:
+    models:
+      prompt_request: "Prompt Request"
+    attributes:
+      prompt_request:
+        input_text: "Input text"
+        action_type: "Action type"
+        output_text: "Output text"
+        status: "Status"
+  prompt_requests:
+    form:
+      errors_title: "%{count} error(s) prohibited this prompt_request from being saved:"
+      input_text: "Input text"
+      action_type: "Action type"
+    actions:
+      answer: "Answer"
+      translate_br_us: "Translate BR/US"
+      translate_us_br: "Translate US/BR"
+      summarize: "Summarize"
+    index:
+      title: "Prompt requests"
+      show: "Show this prompt request"
+      new: "New prompt request"
+    show:
+      back: "Back to prompt requests"
+      destroy: "Destroy this prompt request"
+    notices:
+      created: "Prompt request was successfully created."
+      updated: "Prompt request was successfully updated."
+      destroyed: "Prompt request was successfully destroyed."
+    status:
+      completed: "completed"
+      pending: "pending"
+      failed: "failed"
+    errors:
+      processing_request: "Error processing request"
+  helpers:
+    submit: "Generate request"
+    edit: "Edit"
+    new: "New"
+    back: "Back"
+    show: "Show"
+    are_you_sure: "Are you sure?"

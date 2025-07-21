@@ -1,0 +1,21 @@
+<% if notice.present? %>
+  <div id="notice-alert" style="display: flex; align-items: center; gap: 12px; background: rgba(56, 142, 60, 0.75); color: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0002; padding: 16px 24px; margin-bottom: 24px; font-size: 1.1rem; font-weight: 500; position: relative;">
+    <svg width="24" height="24" fill="none" style="flex-shrink:0;" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="12" fill="#43a047"/>
+      <path d="M17 9l-5.2 5.2L7 11.4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span><%= notice %></span>
+    <button onclick="document.getElementById('notice-alert').style.display='none';" aria-label="Fechar" style="background: none; border: none; color: #fff; position: absolute; top: 8px; right: 12px; font-size: 1.3rem; cursor: pointer; padding: 0; line-height: 1;">
+      &times;
+    </button>
+  </div>
+<% end %>
+
+<div style="background: rgba(40, 40, 50, 0.80); border-radius: 10px; box-shadow: 0 2px 8px #0003; padding: 32px 32px 24px 32px; margin-bottom: 32px;">
+  <%= render @prompt_request %>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <%= link_to t('prompt_requests.show.back'), prompt_requests_path, class: "btn", style: "float: none; margin-bottom: 0;" %>
+  <%= button_to t('prompt_requests.show.destroy'), @prompt_request, method: :delete, class: "btn", style: "float: none; margin-bottom: 0;" %>
+</div>

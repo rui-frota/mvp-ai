@@ -1,0 +1,2 @@
+class PromptRequest < ApplicationRecord
+end

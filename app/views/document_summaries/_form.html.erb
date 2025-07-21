@@ -1,0 +1,21 @@
+<%= bootstrap_form_with(model: document_summary) do |form| %>
+  <% if document_summary.errors.any? %>
+    <div style="color: red">
+      <h2><%= t('document_summaries.form.errors_title', count: document_summary.errors.count) %></h2>
+      <ul>
+        <% document_summary.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.file_field :document, accept: ".pdf,.doc,.docx,.txt" %>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to t('document_summaries.form.back'), document_summaries_path, class: "btn btn-secondary" %>
+    <%= form.submit t('document_summaries.form.generate'), class: "btn btn-primary" %>
+  </div>
+<% end %>

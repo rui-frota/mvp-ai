@@ -1,0 +1,76 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* Background image for the project */
+body {
+  background: #181a1b url('/assets/ai_image.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #e0e0e0;
+  margin: 50px;
+}
+
+a {
+  color: #8ab4f8;
+}
+
+a:visited {
+  color: #b39ddb;
+}
+
+option {
+  background-color: #212529 !important;
+  color: #e0e0e0 !important;
+}
+
+select {
+  background-color: rgba(35, 39, 42, 0.6) !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #444 !important;
+}
+
+textarea {
+  background-color: rgba(35, 39, 42, 0.6) !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #444 !important;
+  height: 200px; 
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px rgba(35, 39, 42, 0.6) inset !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+::selection {
+  background: #333;
+  color: #fff;
+}
+
+.btn {
+  background-color: #8e24aa !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  float: right;
+}
+
+.btn:hover {
+  background-color: #6d1b7b !important;
+}

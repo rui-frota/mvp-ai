@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Processed files</h1>
+
+<div id="processed_files">
+  <% @processed_files.each do |processed_file| %>
+    <%= render processed_file %>
+    <p>
+      <%= link_to "Show this processed file", processed_file %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New processed file", new_processed_file_path %>

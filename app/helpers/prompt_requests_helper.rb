@@ -1,0 +1,2 @@
+module PromptRequestsHelper
+end

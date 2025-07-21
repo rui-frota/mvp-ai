@@ -1,0 +1,44 @@
+pt-BR:
+  activerecord:
+    models:
+      prompt_request: "Solicitação de Prompt"
+    attributes:
+      prompt_request:
+        input_text: "Texto de entrada"
+        action_type: "Tipo de ação"
+        output_text: "Texto de saída"
+        status: "Status"
+  prompt_requests:
+    form:
+      errors_title: "%{count} erro(s) impediram este prompt_request de ser salvo:"
+      input_text: "Texto de entrada"
+      action_type: "Tipo de ação"
+    actions:
+      answer: "Responder"
+      translate_br_us: "Traduzir BR/US"
+      translate_us_br: "Traduzir US/BR"
+      summarize: "Resumir"
+    index:
+      title: "Solicitações de Prompt"
+      show: "Mostrar esta solicitação de prompt"
+      new: "Nova solicitação de prompt"
+    show:
+      back: "Voltar para solicitações de prompt"
+      destroy: "Excluir esta solicitação de prompt"
+    notices:
+      created: "Solicitação de prompt criada com sucesso."
+      updated: "Solicitação de prompt atualizada com sucesso."
+      destroyed: "Solicitação de prompt excluída com sucesso."
+    status:
+      completed: "concluída"
+      pending: "pendente"
+      failed: "falhou"
+    errors:
+      processing_request: "Erro ao processar solicitação"
+  helpers:
+    submit: "Gerar solicitação"
+    edit: "Editar"
+    new: "Novo"
+    back: "Voltar"
+    show: "Mostrar"
+    are_you_sure: "Tem certeza?"

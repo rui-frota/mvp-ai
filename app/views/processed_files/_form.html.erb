@@ -1,0 +1,22 @@
+<%= form_with(model: processed_file) do |form| %>
+  <% if processed_file.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(processed_file.errors.count, "error") %> prohibited this processed_file from being saved:</h2>
+
+      <ul>
+        <% processed_file.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :document, style: "display: block" %>
+    <%= form.file_field :document %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

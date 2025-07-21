@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @processed_file %>
+
+<div>
+  <%= link_to "Edit this processed file", edit_processed_file_path(@processed_file) %> |
+  <%= link_to "Back to processed files", processed_files_path %>
+
+  <%= button_to "Destroy this processed file", @processed_file, method: :delete %>
+</div>

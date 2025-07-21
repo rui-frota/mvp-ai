@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  input_text: MyText
+  action_type: MyString
+  output_text: MyText
+  status: MyString
+
+two:
+  input_text: MyText
+  action_type: MyString
+  output_text: MyText
+  status: MyString

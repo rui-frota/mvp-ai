@@ -1,0 +1,7 @@
+<div id="<%= dom_id processed_file %>">
+  <p>
+    <strong>Document:</strong>
+    <%= link_to processed_file.document.filename, processed_file.document if processed_file.document.attached? %>
+  </p>
+
+</div>

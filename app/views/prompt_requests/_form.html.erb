@@ -1,0 +1,25 @@
+<%= bootstrap_form_with(model: prompt_request) do |form| %>
+  <% if prompt_request.errors.any? %>
+    <div style="color: red">
+      <h2><%= t('prompt_requests.form.errors_title', count: prompt_request.errors.count) %></h2>
+      <ul>
+        <% prompt_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.text_area :input_text %>
+  </div>
+
+  <div>
+    <%= form.select :action_type, [
+      t('prompt_requests.actions.answer'),
+      t('prompt_requests.actions.translate_br_us'), 
+      t('prompt_requests.actions.translate_us_br'), 
+      t('prompt_requests.actions.summarize')
+    ] %>
+  </div>
+<% end %>
