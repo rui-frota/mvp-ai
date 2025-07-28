@@ -1,14 +1,124 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <% if notice %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle me-2"></i>
+      <%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
 
-<h1>Processed files</h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-6">
+      <i class="bi bi-files me-3"></i>
+      <%= t('processed_files.index.title') %>
+    </h1>
+    <div class="btn-group" role="group">
+      <%= link_to new_processed_file_path, 
+        class: "btn btn-primary btn-lg",
+        "data-bs-toggle": "tooltip",
+        title: t('processed_files.index.new') do %>
+        <i class="bi bi-plus-circle me-2"></i>
+        <%= t('processed_files.index.new') %>
+      <% end %>
+      <%= link_to prompt_requests_path, 
+        class: "btn btn-outline-secondary btn-lg",
+        "data-bs-toggle": "tooltip",
+        title: t('prompt_requests.index.title') do %>
+        <i class="bi bi-chat-dots me-2"></i>
+        Prompts
+      <% end %>
+    </div>
+  </div>
 
-<div id="processed_files">
-  <% @processed_files.each do |processed_file| %>
-    <%= render processed_file %>
-    <p>
-      <%= link_to "Show this processed file", processed_file %>
-    </p>
+  <% if @processed_files.any? %>
+    <div class="row">
+      <% @processed_files.each do |processed_file| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h6 class="card-subtitle mb-0 text-truncate">
+                <i class="bi bi-file-earmark-text me-2"></i>
+                <%= processed_file.filename || "Documento" %>
+              </h6>
+              <span class="badge <%= status_badge_class(processed_file.status) %>">
+                <%= t("processed_files.status.#{processed_file.status}") %>
+              </span>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <small class="text-muted">
+                  <i class="bi bi-clock me-1"></i>
+                  <%= t('activerecord.attributes.processed_file.summary_type') %>: 
+                  <%= t("processed_files.summary_types.#{processed_file.summary_type}") if processed_file.summary_type %>
+                </small>
+              </p>
+              <% if processed_file.summary.present? %>
+                <p class="card-text text-truncate">
+                  <%= truncate(processed_file.summary, length: 100) %>
+                </p>
+              <% end %>
+            </div>
+            <div class="card-footer bg-transparent">
+              <div class="btn-group w-100" role="group">
+                <%= link_to processed_file, 
+                  class: "btn btn-outline-primary btn-sm",
+                  title: t('processed_files.index.show') do %>
+                  <i class="bi bi-eye"></i>
+                <% end %>
+                <% if processed_file.completed? %>
+                  <%= link_to reprocess_processed_file_path(processed_file), 
+                    method: :post,
+                    class: "btn btn-outline-warning btn-sm",
+                    title: t('processed_files.show.reprocess'),
+                    confirm: t('helpers.are_you_sure') do %>
+                    <i class="bi bi-arrow-clockwise"></i>
+                  <% end %>
+                <% end %>
+                <%= link_to prompt_requests_path, 
+                  class: "btn btn-outline-secondary btn-sm",
+                  title: t('prompt_requests.index.title') do %>
+                  <i class="bi bi-chat-dots"></i>
+                <% end %>
+                <%= link_to processed_file, 
+                  method: :delete,
+                  class: "btn btn-outline-danger btn-sm",
+                  title: t('processed_files.show.destroy'),
+                  confirm: t('helpers.are_you_sure') do %>
+                  <i class="bi bi-trash"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-5">
+      <div class="mb-4">
+        <i class="bi bi-inbox display-1 text-muted"></i>
+      </div>
+      <h3 class="text-white"><%= t('processed_files.index.no_files') %></h3>
+      <p class="text-white mb-4"><%= t('processed_files.index.upload_first') %></p>
+      <div class="d-flex gap-3 justify-content-center">
+        <%= link_to new_processed_file_path, 
+          class: "btn btn-primary btn-lg" do %>
+          <i class="bi bi-plus-circle me-2"></i>
+          <%= t('processed_files.index.new') %>
+        <% end %>
+        <%= link_to prompt_requests_path, 
+          class: "btn btn-outline-secondary btn-lg" do %>
+          <i class="bi bi-chat-dots me-2"></i>
+          Ir para Prompts
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
 
-<%= link_to "New processed file", new_processed_file_path %>
+<script>
+  // Initialize Bootstrap tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>

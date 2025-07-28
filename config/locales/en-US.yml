@@ -2,12 +2,19 @@ en-US:
   activerecord:
     models:
       prompt_request: "Prompt Request"
+      processed_file: "Processed File"
     attributes:
       prompt_request:
         input_text: "Input text"
         action_type: "Action type"
         output_text: "Output text"
         status: "Status"
+      processed_file:
+        document: "Document"
+        summary_type: "Summary type"
+        summary: "Summary"
+        status: "Status"
+        filename: "Filename"
   prompt_requests:
     form:
       errors_title: "%{count} error(s) prohibited this prompt_request from being saved:"
@@ -35,6 +42,46 @@ en-US:
       failed: "failed"
     errors:
       processing_request: "Error processing request"
+  processed_files:
+    form:
+      errors_title: "%{count} error(s) prevented this file from being processed:"
+      upload_document: "Document Upload"
+      file_tooltip: "Select a file to process with AI"
+      supported_formats: "Supported formats: TXT, PDF, DOC, DOCX, MD (max. 10MB)"
+      summary_type_help: "Choose the type of summary you want to generate"
+      submit_button: "Process Document"
+      submit_tooltip: "Submit file for AI processing"
+      file_too_large: "File too large! Maximum allowed: 10MB"
+    summary_types:
+      detailed: "Detailed Summary"
+      brief: "Brief Summary"
+      bullet_points: "Key Points"
+      executive: "Executive Summary"
+    index:
+      title: "Processed Files"
+      show: "View file"
+      new: "New file"
+      no_files: "No files processed yet"
+      upload_first: "Upload your first document!"
+    show:
+      back: "Back to files"
+      destroy: "Delete file"
+      download: "Download summary"
+      reprocess: "Reprocess"
+    notices:
+      created: "File processed successfully."
+      updated: "File updated successfully."
+      destroyed: "File deleted successfully."
+      processing: "File being processed..."
+    status:
+      completed: "processed"
+      pending: "pending"
+      processing: "processing"
+      failed: "failed"
+    errors:
+      processing_file: "Error processing file"
+      invalid_format: "Invalid file format"
+      file_too_large: "File too large"
   helpers:
     submit: "Generate request"
     edit: "Edit"

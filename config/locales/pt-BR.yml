@@ -1,13 +1,92 @@
 pt-BR:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d de %b"
+      long: "%d de %B de %Y"
+    day_names:
+      - Domingo
+      - Segunda-feira
+      - Terça-feira
+      - Quarta-feira
+      - Quinta-feira
+      - Sexta-feira
+      - Sábado
+    abbr_day_names:
+      - Dom
+      - Seg
+      - Ter
+      - Qua
+      - Qui
+      - Sex
+      - Sáb
+    month_names:
+      - 
+      - Janeiro
+      - Fevereiro
+      - Março
+      - Abril
+      - Maio
+      - Junho
+      - Julho
+      - Agosto
+      - Setembro
+      - Outubro
+      - Novembro
+      - Dezembro
+    abbr_month_names:
+      - 
+      - Jan
+      - Fev
+      - Mar
+      - Abr
+      - Mai
+      - Jun
+      - Jul
+      - Ago
+      - Set
+      - Out
+      - Nov
+      - Dez
+    order:
+      - :day
+      - :month
+      - :year
+  time:
+    formats:
+      default: "%a, %d de %B de %Y, %H:%M:%S %z"
+      short: "%d de %B, %H:%M"
+      long: "%A, %d de %B de %Y, %H:%M"
+    am: ''
+    pm: ''
   activerecord:
     models:
       prompt_request: "Solicitação de Prompt"
+      processed_file: "Arquivo Processado"
     attributes:
       prompt_request:
         input_text: "Texto de entrada"
         action_type: "Tipo de ação"
         output_text: "Texto de saída"
         status: "Status"
+      processed_file:
+        document: "Documento"
+        summary_type: "Tipo de resumo"
+        summary: "Resumo"
+        status: "Status"
+        filename: "Nome do arquivo"
+    errors:
+      models:
+        processed_file:
+          attributes:
+            document:
+              blank: "é obrigatório"
+            summary_type:
+              blank: "é obrigatório"
+              inclusion: "deve ser um dos tipos válidos"
+            status:
+              blank: "é obrigatório"
+              inclusion: "deve ser um status válido"
   prompt_requests:
     form:
       errors_title: "%{count} erro(s) impediram este prompt_request de ser salvo:"
@@ -35,6 +114,46 @@ pt-BR:
       failed: "falhou"
     errors:
       processing_request: "Erro ao processar solicitação"
+  processed_files:
+    form:
+      errors_title: "%{count} erro(s) impediram que este arquivo fosse processado:"
+      upload_document: "Upload de Documento"
+      file_tooltip: "Selecione um arquivo para processar com IA"
+      supported_formats: "Formatos suportados: TXT, PDF, DOC, DOCX, MD (máx. 10MB)"
+      summary_type_help: "Escolha o tipo de resumo que deseja gerar"
+      submit_button: "Processar Documento"
+      submit_tooltip: "Enviar arquivo para processamento com IA"
+      file_too_large: "Arquivo muito grande! Máximo permitido: 10MB"
+    summary_types:
+      detailed: "Resumo Detalhado"
+      brief: "Resumo Breve"
+      bullet_points: "Pontos Principais"
+      executive: "Resumo Executivo"
+    index:
+      title: "Arquivos Processados"
+      show: "Visualizar arquivo"
+      new: "Novo arquivo"
+      no_files: "Nenhum arquivo processado ainda"
+      upload_first: "Faça upload do seu primeiro documento!"
+    show:
+      back: "Voltar para arquivos"
+      destroy: "Excluir arquivo"
+      download: "Baixar resumo"
+      reprocess: "Reprocessar"
+    notices:
+      created: "Arquivo processado com sucesso."
+      updated: "Arquivo atualizado com sucesso."
+      destroyed: "Arquivo excluído com sucesso."
+      processing: "Arquivo sendo processado..."
+    status:
+      completed: "processado"
+      pending: "pendente"
+      processing: "processando"
+      failed: "falhou"
+    errors:
+      processing_file: "Erro ao processar arquivo"
+      invalid_format: "Formato de arquivo inválido"
+      file_too_large: "Arquivo muito grande"
   helpers:
     submit: "Gerar solicitação"
     edit: "Editar"

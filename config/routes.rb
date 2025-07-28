@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :processed_files
   scope "(:locale)", locale: /en-US|pt-BR/ do
     resources :prompt_requests
-    resources :processed_files
+    resources :processed_files do
+      member do
+        post :reprocess
+      end
+    end
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
     # Defines the root path route ("/")

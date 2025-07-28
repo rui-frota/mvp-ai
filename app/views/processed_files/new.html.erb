@@ -1,9 +1,19 @@
-<h1>New processed file</h1>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6">
+          <i class="bi bi-plus-circle me-3"></i>
+          <%= t('processed_files.index.new') %>
+        </h1>
+        <%= link_to processed_files_path, 
+          class: "btn btn-outline-secondary" do %>
+          <i class="bi bi-arrow-left me-2"></i>
+          <%= t('processed_files.show.back') %>
+        <% end %>
+      </div>
 
-<%= render "form", processed_file: @processed_file %>
-
-<br>
-
-<div>
-  <%= link_to t('prompt_requests.show.back'), prompt_requests_path, class: "btn", style: "float: none; margin-bottom: 0;" %>
+      <%= render "form", processed_file: @processed_file %>
+    </div>
+  </div>
 </div>

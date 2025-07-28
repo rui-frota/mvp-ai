@@ -3,8 +3,8 @@ require 'json'
 
 class ApiClient
   OLLAMA_URL = 'http://localhost:11434/api/generate'
-
-  def self.generate(prompt, model: 'llama3.2')
+# binding.pry
+  def self.generate(prompt, model: 'llama3')
     uri = URI(OLLAMA_URL)
     req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')
     req.body = { model: model, prompt: prompt }.to_json
@@ -30,7 +30,7 @@ class ApiClient
     response_text.strip
   end
 
-  def self.summarize_document(document_text, model: 'llama3.2', summary_type: 'detailed')
+  def self.summarize_document(document_text, model: 'llama3', summary_type: 'detailed')
     prompt_templates = {
       'brief' => "Faça um resumo breve (2-3 parágrafos) do seguinte documento:\n\n#{document_text}",
       'detailed' => "Faça um resumo detalhado do seguinte documento, incluindo os pontos principais e conclusões:\n\n#{document_text}",
@@ -43,7 +43,7 @@ class ApiClient
   end
 
   # Método para processar arquivos de texto
-  def self.summarize_file(file_path, model: 'llama3.2', summary_type: 'detailed')
+  def self.summarize_file(file_path, model: 'llama3', summary_type: 'detailed')
     unless File.exist?(file_path)
       raise "Arquivo não encontrado: #{file_path}"
     end
@@ -63,7 +63,7 @@ class ApiClient
   end
 
   # Método para processar documentos grandes em chunks
-  def self.summarize_large_document(document_text, model: 'llama3.2', chunk_size: 4000)
+  def self.summarize_large_document(document_text, model: 'llama3', chunk_size: 4000)
     if document_text.length <= chunk_size
       return summarize_document(document_text, model: model)
     end
@@ -85,7 +85,7 @@ class ApiClient
   end
 
   # Método para extrair informações específicas
-  def self.extract_information(document_text, question, model: 'llama3.2')
+  def self.extract_information(document_text, question, model: 'llama3')
     prompt = "Com base no seguinte documento, responda à pergunta: #{question}\n\nDocumento:\n#{document_text}"
     generate(prompt, model: model)
   end

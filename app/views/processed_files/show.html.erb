@@ -1,10 +1,158 @@
-<p style="color: green"><%= notice %></p>
+<div class="container mt-4">
+  <% if notice %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle me-2"></i>
+      <%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
 
-<%= render @processed_file %>
+  <% if alert %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-triangle me-2"></i>
+      <%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
 
-<div>
-  <%= link_to "Edit this processed file", edit_processed_file_path(@processed_file) %> |
-  <%= link_to "Back to processed files", processed_files_path %>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="display-6">
+      <i class="bi bi-file-earmark-text me-3"></i>
+      <%= @processed_file.filename || "Documento Processado" %>
+    </h1>
+    <span class="badge <%= status_badge_class(@processed_file.status) %> fs-6">
+      <%= t("processed_files.status.#{@processed_file.status}") %>
+    </span>
+  </div>
 
-  <%= button_to "Destroy this processed file", @processed_file, method: :delete %>
+  <div class="row">
+    <div class="col-md-8">
+      <% if @processed_file.completed? && @processed_file.summary.present? %>
+        <div class="card mb-4">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">
+              <i class="bi bi-file-text me-2"></i>
+              <%= t("processed_files.summary_types.#{@processed_file.summary_type}") %>
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="summary-content">
+              <%= simple_format(@processed_file.summary) %>
+            </div>
+          </div>
+        </div>
+      <% elsif @processed_file.processing? %>
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <div class="spinner-border text-primary mb-3" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <h5><%= t('processed_files.notices.processing') %></h5>
+            <p class="text-muted">Por favor, aguarde enquanto processamos seu documento...</p>
+          </div>
+        </div>
+      <% elsif @processed_file.failed? %>
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <i class="bi bi-exclamation-triangle display-4 text-danger mb-3"></i>
+            <h5 class="text-danger"><%= t('processed_files.errors.processing_file') %></h5>
+            <p class="text-muted">Ocorreu um erro ao processar o documento. Tente novamente.</p>
+          </div>
+        </div>
+      <% else %>
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <i class="bi bi-clock display-4 text-warning mb-3"></i>
+            <h5 class="text-warning">Documento Pendente</h5>
+            <p class="text-muted">O documento está aguardando processamento.</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h6 class="card-title mb-0">
+            <i class="bi bi-info-circle me-2"></i>
+            Informações do Arquivo
+          </h6>
+        </div>
+        <div class="card-body">
+          <dl class="row">
+            <dt class="col-sm-6">Arquivo:</dt>
+            <dd class="col-sm-6"><%= @processed_file.filename %></dd>
+            
+            <dt class="col-sm-6">Tipo de Resumo:</dt>
+            <dd class="col-sm-6">
+              <%= t("processed_files.summary_types.#{@processed_file.summary_type}") if @processed_file.summary_type %>
+            </dd>
+            
+            <dt class="col-sm-6">Status:</dt>
+            <dd class="col-sm-6">
+              <span class="badge <%= status_badge_class(@processed_file.status) %>">
+                <%= t("processed_files.status.#{@processed_file.status}") %>
+              </span>
+            </dd>
+            
+            <dt class="col-sm-6">Criado em:</dt>
+            <dd class="col-sm-6"><%= l(@processed_file.created_at, format: :long) %></dd>
+          </dl>
+        </div>
+      </div>
+      
+      <div class="card mt-3">
+        <div class="card-header">
+          <h6 class="card-title mb-0">
+            <i class="bi bi-gear me-2"></i>
+            Ações
+          </h6>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <% if @processed_file.completed? %>
+              <%= link_to reprocess_processed_file_path(@processed_file), 
+                method: :post,
+                class: "btn btn-warning",
+                confirm: t('helpers.are_you_sure') do %>
+                <i class="bi bi-arrow-clockwise me-2"></i>
+                <%= t('processed_files.show.reprocess') %>
+              <% end %>
+            <% end %>
+            
+            <%= link_to edit_processed_file_path(@processed_file), 
+              class: "btn btn-outline-primary" do %>
+              <i class="bi bi-pencil me-2"></i>
+              <%= t('helpers.edit') %>
+            <% end %>
+            
+            <%= link_to processed_files_path, 
+              class: "btn btn-outline-secondary" do %>
+              <i class="bi bi-arrow-left me-2"></i>
+              <%= t('processed_files.show.back') %>
+            <% end %>
+            
+            <%= button_to @processed_file, 
+              method: :delete,
+              class: "btn btn-outline-danger",
+              confirm: t('helpers.are_you_sure') do %>
+              <i class="bi bi-trash me-2"></i>
+              <%= t('processed_files.show.destroy') %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<style>
+  .summary-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+  }
+  
+  .summary-content p {
+    margin-bottom: 1rem;
+  }
+</style>

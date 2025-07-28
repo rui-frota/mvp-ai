@@ -1,9 +1,11 @@
-<%= form_with(model: processed_file) do |form| %>
+<%= bootstrap_form_with(model: processed_file, local: true, html: { multipart: true, class: "needs-validation", novalidate: true }) do |form| %>
   <% if processed_file.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(processed_file.errors.count, "error") %> prohibited this processed_file from being saved:</h2>
-
-      <ul>
+    <div class="alert alert-danger" role="alert">
+      <h5 class="alert-heading">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        <%= t('processed_files.form.errors_title', count: processed_file.errors.count) %>
+      </h5>
+      <ul class="mb-0">
         <% processed_file.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,12 +13,94 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :document, style: "display: block" %>
-    <%= form.file_field :document %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title mb-0">
+        <i class="bi bi-file-earmark-arrow-up me-2"></i>
+        <%= t('processed_files.form.upload_document') %>
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="mb-4">
+        <%= form.file_field :document, 
+          class: "form-control form-control-lg", 
+          accept: ".txt,.pdf,.doc,.docx,.md",
+          required: true,
+          "data-bs-toggle": "tooltip",
+          title: t('processed_files.form.file_tooltip') %>
+        <div class="form-text">
+          <i class="bi bi-info-circle me-1"></i>
+          <%= t('processed_files.form.supported_formats') %>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <%= form.select :summary_type, 
+          options_for_select([
+            [t('processed_files.summary_types.detailed'), 'detailed'],
+            [t('processed_files.summary_types.brief'), 'brief'],
+            [t('processed_files.summary_types.bullet_points'), 'bullet_points'],
+            [t('processed_files.summary_types.executive'), 'executive']
+          ], processed_file.summary_type || 'detailed'),
+          {},
+          { class: "form-select" } %>
+        <div class="form-text">
+          <%= t('processed_files.form.summary_type_help') %>
+        </div>
+      </div>
+      
+      <div class="d-grid gap-2">
+        <button id="process-btn" type="button" class="btn btn-primary btn-lg" onclick="showLoadingAndSubmit()" data-bs-toggle="tooltip" title="<%= t('processed_files.form.submit_tooltip') %>">
+          <span id="btn-text">
+            <i class="bi bi-cpu me-2"></i>
+            <%= t('processed_files.form.submit_button') %>
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 <% end %>
+
+<div id="center-spinner" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; justify-content:center; align-items:center;">
+  <div class="spinner-border text-light" style="width:3rem; height:3rem;" role="status">
+    <span class="visually-hidden">Processando...</span>
+  </div>
+</div>
+
+<script>
+  // Initialize Bootstrap tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+  
+  // File upload validation
+  document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const fileSize = file.size / 1024 / 1024; // Convert to MB
+      if (fileSize > 10) {
+        alert('<%= t('processed_files.form.file_too_large') %>');
+        e.target.value = '';
+      }
+    }
+  });
+  
+  // Loading function for form submission
+  function showLoadingAndSubmit() {
+    // Validate form before showing loader
+    const form = document.querySelector('form');
+    const fileInput = document.querySelector('input[type="file"]');
+    
+    if (!fileInput.files.length) {
+      alert('Por favor, selecione um arquivo para processar.');
+      return;
+    }
+    
+    // Show loading spinner
+    document.getElementById('center-spinner').style.display = 'flex';
+    
+    // Submit the form
+    form.requestSubmit();
+  }
+</script>

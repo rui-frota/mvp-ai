@@ -7,7 +7,7 @@ This project is a Ruby on Rails application that uses a locally running Llama mo
 - **Ruby** (recommended version: 3.1+)
 - **Bundler**
 - **Node.js** and **Yarn** (for assets)
-- **PostgreSQL** (or SQLite, as configured)
+- **SQLite**
 - **Python 3** (to run Llama locally)
 - **pip** (Python package manager)
 - **git**

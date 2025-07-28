@@ -25,8 +25,14 @@ class ProcessedFilesController < ApplicationController
 
     respond_to do |format|
       if @processed_file.save
-        format.html { redirect_to @processed_file, notice: "Processed file was successfully created." }
-        format.json { render :show, status: :created, location: @processed_file }
+        # Processar o arquivo em background (ou imediatamente para demo)
+        if @processed_file.process_document!
+          format.html { redirect_to @processed_file, notice: t('processed_files.notices.created') }
+          format.json { render :show, status: :created, location: @processed_file }
+        else
+          format.html { redirect_to @processed_file, alert: t('processed_files.errors.processing_file') }
+          format.json { render json: { error: t('processed_files.errors.processing_file') }, status: :unprocessable_entity }
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @processed_file.errors, status: :unprocessable_entity }
@@ -38,7 +44,7 @@ class ProcessedFilesController < ApplicationController
   def update
     respond_to do |format|
       if @processed_file.update(processed_file_params)
-        format.html { redirect_to @processed_file, notice: "Processed file was successfully updated." }
+        format.html { redirect_to @processed_file, notice: t('processed_files.notices.updated') }
         format.json { render :show, status: :ok, location: @processed_file }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,8 +58,19 @@ class ProcessedFilesController < ApplicationController
     @processed_file.destroy!
 
     respond_to do |format|
-      format.html { redirect_to processed_files_path, status: :see_other, notice: "Processed file was successfully destroyed." }
+      format.html { redirect_to processed_files_path, status: :see_other, notice: t('processed_files.notices.destroyed') }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /processed_files/1/reprocess
+  def reprocess
+    @processed_file = ProcessedFile.find(params[:id])
+    
+    if @processed_file.process_document!
+      redirect_to @processed_file, notice: t('processed_files.notices.processing')
+    else
+      redirect_to @processed_file, alert: t('processed_files.errors.processing_file')
     end
   end
 
@@ -65,6 +82,6 @@ class ProcessedFilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def processed_file_params
-      params.require(:processed_file).permit(:document)
+      params.require(:processed_file).permit(:document, :summary_type)
     end
 end
