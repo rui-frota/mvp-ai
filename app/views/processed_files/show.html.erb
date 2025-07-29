@@ -110,22 +110,6 @@
         </div>
         <div class="card-body">
           <div class="d-grid gap-2">
-            <% if @processed_file.completed? %>
-              <%= link_to reprocess_processed_file_path(@processed_file), 
-                method: :post,
-                class: "btn btn-warning",
-                confirm: t('helpers.are_you_sure') do %>
-                <i class="bi bi-arrow-clockwise me-2"></i>
-                <%= t('processed_files.show.reprocess') %>
-              <% end %>
-            <% end %>
-            
-            <%= link_to edit_processed_file_path(@processed_file), 
-              class: "btn btn-outline-primary" do %>
-              <i class="bi bi-pencil me-2"></i>
-              <%= t('helpers.edit') %>
-            <% end %>
-            
             <%= link_to processed_files_path, 
               class: "btn btn-outline-secondary" do %>
               <i class="bi bi-arrow-left me-2"></i>

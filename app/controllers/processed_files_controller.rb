@@ -63,17 +63,6 @@ class ProcessedFilesController < ApplicationController
     end
   end
 
-  # POST /processed_files/1/reprocess
-  def reprocess
-    @processed_file = ProcessedFile.find(params[:id])
-    
-    if @processed_file.process_document!
-      redirect_to @processed_file, notice: t('processed_files.notices.processing')
-    else
-      redirect_to @processed_file, alert: t('processed_files.errors.processing_file')
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_processed_file

@@ -65,15 +65,6 @@
                   title: t('processed_files.index.show') do %>
                   <i class="bi bi-eye"></i>
                 <% end %>
-                <% if processed_file.completed? %>
-                  <%= link_to reprocess_processed_file_path(processed_file), 
-                    method: :post,
-                    class: "btn btn-outline-warning btn-sm",
-                    title: t('processed_files.show.reprocess'),
-                    confirm: t('helpers.are_you_sure') do %>
-                    <i class="bi bi-arrow-clockwise"></i>
-                  <% end %>
-                <% end %>
                 <%= link_to prompt_requests_path, 
                   class: "btn btn-outline-secondary btn-sm",
                   title: t('prompt_requests.index.title') do %>
