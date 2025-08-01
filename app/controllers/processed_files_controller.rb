@@ -58,7 +58,7 @@ class ProcessedFilesController < ApplicationController
     @processed_file.destroy!
 
     respond_to do |format|
-      format.html { redirect_to processed_files_path, status: :see_other, notice: t('processed_files.notices.destroyed') }
+      format.html { redirect_to processed_files_path, status: :see_other, alert: t('processed_files.notices.destroyed') }
       format.json { head :no_content }
     end
   end
