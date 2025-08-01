@@ -1,6 +1,6 @@
 <div class="container mt-4">
   <% if notice %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm" role="alert" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%); border-left: 4px solid #22c55e !important;">
       <i class="bi bi-check-circle me-2"></i>
       <%= notice %>
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -8,7 +8,7 @@
   <% end %>
 
   <% if alert %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%); border-left: 4px solid #ef4444 !important;">
       <i class="bi bi-exclamation-triangle me-2"></i>
       <%= alert %>
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -16,11 +16,11 @@
   <% end %>
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="display-6">
-      <i class="bi bi-file-earmark-text me-3"></i>
+    <h1 class="display-6" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;">
+      <i class="bi bi-file-earmark-text me-3" style="color: #6366f1;"></i>
       <%= @processed_file.filename || t('processed_files.show.default_title') %>
     </h1>
-    <span class="badge <%= status_badge_class(@processed_file.status) %> fs-6">
+    <span class="badge fs-6" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; padding: 8px 16px; border-radius: 20px;">
       <%= t("processed_files.status.#{@processed_file.status}") %>
     </span>
   </div>
@@ -28,97 +28,115 @@
   <div class="row">
     <div class="col-md-8">
       <% if @processed_file.completed? && @processed_file.summary.present? %>
-        <div class="card mb-4">
-          <div class="card-header bg-primary text-white">
-            <h5 class="card-title mb-0">
-              <i class="bi bi-file-text me-2"></i>
+        <div class="card mb-4 border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px; overflow: hidden;">
+          <div class="card-header border-0" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; padding: 20px;">
+            <h5 class="card-title mb-0 d-flex align-items-center">
+              <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 8px; margin-right: 12px;">
+                <i class="bi bi-file-text" style="font-size: 1.2rem;"></i>
+              </div>
               <%= t("processed_files.summary_types.#{@processed_file.summary_type}") %>
             </h5>
           </div>
-          <div class="card-body">
-            <div class="summary-content">
+          <div class="card-body" style="padding: 30px;">
+            <div class="summary-content" style="background: rgba(248, 250, 252, 0.7); border-radius: 12px; padding: 20px; border-left: 4px solid #6366f1;">
               <%= simple_format(@processed_file.summary) %>
             </div>
           </div>
         </div>
       <% elsif @processed_file.processing? %>
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <div class="spinner-border text-primary mb-3" role="status">
-              <span class="visually-hidden"><%= t('processed_files.show.loading') %></span>
+        <div class="card mb-4 border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px;">
+          <div class="card-body text-center" style="padding: 50px 30px;">
+            <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <div class="spinner-border text-white" role="status">
+                <span class="visually-hidden"><%= t('processed_files.show.loading') %></span>
+              </div>
             </div>
-            <h5><%= t('processed_files.notices.processing') %></h5>
-            <p class="text-muted"><%= t('processed_files.show.processing_message') %></p>
+            <h5 style="color: #1f2937; margin-bottom: 12px;"><%= t('processed_files.notices.processing') %></h5>
+            <p style="color: #6b7280; margin-bottom: 0;"><%= t('processed_files.show.processing_message') %></p>
           </div>
         </div>
       <% elsif @processed_file.failed? %>
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <i class="bi bi-exclamation-triangle display-4 text-danger mb-3"></i>
-            <h5 class="text-danger"><%= t('processed_files.errors.processing_file') %></h5>
-            <p class="text-muted"><%= t('processed_files.show.error_message') %></p>
+        <div class="card mb-4 border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px;">
+          <div class="card-body text-center" style="padding: 50px 30px;">
+            <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-exclamation-triangle display-4 text-white"></i>
+            </div>
+            <h5 style="color: #ef4444; margin-bottom: 12px;"><%= t('processed_files.errors.processing_file') %></h5>
+            <p style="color: #6b7280; margin-bottom: 0;"><%= t('processed_files.show.error_message') %></p>
           </div>
         </div>
       <% else %>
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <i class="bi bi-clock display-4 text-warning mb-3"></i>
-            <h5 class="text-warning"><%= t('processed_files.show.pending_title') %></h5>
-            <p class="text-muted"><%= t('processed_files.show.pending_message') %></p>
+        <div class="card mb-4 border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px;">
+          <div class="card-body text-center" style="padding: 50px 30px;">
+            <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-clock display-4 text-white"></i>
+            </div>
+            <h5 style="color: #f59e0b; margin-bottom: 12px;"><%= t('processed_files.show.pending_title') %></h5>
+            <p style="color: #6b7280; margin-bottom: 0;"><%= t('processed_files.show.pending_message') %></p>
           </div>
         </div>
       <% end %>
     </div>
     
     <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">
-          <h6 class="card-title mb-0">
-            <i class="bi bi-info-circle me-2"></i>
+      <div class="card border-0 shadow-lg mb-3" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px;">
+        <div class="card-header border-0" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; padding: 16px 20px; border-radius: 16px 16px 0 0;">
+          <h6 class="card-title mb-0 d-flex align-items-center">
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 6px; margin-right: 10px;">
+              <i class="bi bi-info-circle" style="font-size: 1rem;"></i>
+            </div>
             <%= t('processed_files.show.file_info') %>
           </h6>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="padding: 20px;">
           <dl class="row">
-            <dt class="col-sm-6"><%= t('processed_files.show.file_label') %>:</dt>
-            <dd class="col-sm-6"><%= @processed_file.filename %></dd>
+            <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.file_label') %>:</dt>
+            <dd class="col-sm-6" style="color: #6b7280;"><%= @processed_file.filename %></dd>
             
-            <dt class="col-sm-6"><%= t('processed_files.show.summary_type_label') %>:</dt>
-            <dd class="col-sm-6">
+            <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.summary_type_label') %>:</dt>
+            <dd class="col-sm-6" style="color: #6b7280;">
               <%= t("processed_files.summary_types.#{@processed_file.summary_type}") if @processed_file.summary_type %>
             </dd>
             
-            <dt class="col-sm-6"><%= t('processed_files.show.status_label') %>:</dt>
+            <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.status_label') %>:</dt>
             <dd class="col-sm-6">
-              <span class="badge <%= status_badge_class(@processed_file.status) %>">
+              <span class="badge" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem;">
                 <%= t("processed_files.status.#{@processed_file.status}") %>
               </span>
             </dd>
             
-            <dt class="col-sm-6"><%= t('processed_files.show.created_at_label') %>:</dt>
-            <dd class="col-sm-6"><%= l(@processed_file.created_at, format: :long) %></dd>
+            <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.created_at_label') %>:</dt>
+            <dd class="col-sm-6" style="color: #6b7280;"><%= l(@processed_file.created_at, format: :long) %></dd>
           </dl>
         </div>
       </div>
       
-      <div class="card mt-3">
-        <div class="card-header">
-          <h6 class="card-title mb-0">
-            <i class="bi bi-gear me-2"></i>
+      <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px;">
+        <div class="card-header border-0" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; padding: 16px 20px; border-radius: 16px 16px 0 0;">
+          <h6 class="card-title mb-0 d-flex align-items-center">
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 6px; margin-right: 10px;">
+              <i class="bi bi-gear" style="font-size: 1rem;"></i>
+            </div>
             <%= t('processed_files.show.actions') %>
           </h6>
         </div>
-        <div class="card-body">
-          <div class="d-grid gap-2">
+        <div class="card-body" style="padding: 20px;">
+          <div class="d-grid gap-3">
             <%= link_to processed_files_path, 
-              class: "btn btn-outline-secondary" do %>
+              class: "btn btn-lg border-0 shadow-sm",
+              style: "background: rgba(107, 114, 128, 0.1); border: 1px solid rgba(107, 114, 128, 0.2); color: #6b7280; border-radius: 12px; padding: 12px 16px; transition: all 0.3s ease;",
+              onmouseover: "this.style.background='rgba(107, 114, 128, 0.2)'; this.style.transform='translateY(-1px)'",
+              onmouseout: "this.style.background='rgba(107, 114, 128, 0.1)'; this.style.transform='translateY(0)'" do %>
               <i class="bi bi-arrow-left me-2"></i>
               <%= t('processed_files.show.back') %>
             <% end %>
             
             <%= button_to @processed_file, 
               method: :delete,
-              class: "btn btn-outline-danger",
+              class: "btn btn-lg border-0 shadow-sm",
+              style: "background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; border-radius: 12px; padding: 12px 16px; transition: all 0.3s ease;",
+              onmouseover: "this.style.background='rgba(239, 68, 68, 0.2)'; this.style.transform='translateY(-1px)'",
+              onmouseout: "this.style.background='rgba(239, 68, 68, 0.1)'; this.style.transform='translateY(0)'",
               confirm: t('helpers.are_you_sure') do %>
               <i class="bi bi-trash me-2"></i>
               <%= t('processed_files.show.destroy') %>
@@ -134,9 +152,30 @@
   .summary-content {
     line-height: 1.8;
     font-size: 1.1rem;
+    color: #374151;
   }
   
   .summary-content p {
+    margin-bottom: 1.2rem;
+  }
+  
+  .summary-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Melhorar legibilidade do texto */
+  .summary-content strong {
+    color: #1f2937;
+    font-weight: 600;
+  }
+  
+  /* Estilo para listas no resumo */
+  .summary-content ul, .summary-content ol {
+    padding-left: 1.5rem;
     margin-bottom: 1rem;
+  }
+  
+  .summary-content li {
+    margin-bottom: 0.5rem;
   }
 </style>

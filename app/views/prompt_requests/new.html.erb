@@ -1,27 +1,19 @@
-<h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 32px; color: #fff;">
-  <%= t('prompt_requests.index.new') %>
-</h1>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6">
+          <i class="bi bi-plus-circle me-3"></i>
+          <%= t('prompt_requests.index.new') %>
+        </h1>
+        <%= link_to prompt_requests_path, 
+          class: "btn btn-outline-secondary" do %>
+          <i class="bi bi-arrow-left me-2"></i>
+          <%= t('prompt_requests.show.back') %>
+        <% end %>
+      </div>
 
-<div style="background: rgba(35, 39, 42, 0.80 ); border-radius: 10px; box-shadow: 0 2px 8px #0003; padding: 32px 32px 24px 32px; margin-bottom: 32px;">
-  <%= render "form", prompt_request: @prompt_request %>
-</div>
-
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <%= link_to t('prompt_requests.show.back'), prompt_requests_path, class: "btn", style: "float: none; margin-bottom: 0;" %>
-  <button id="save-btn" type="button" class="btn" onclick="showLoadingAndSubmit()" style="float: none; margin-bottom: 0;">
-    <span id="btn-text"><%= t('helpers.submit') %></span>
-  </button>
-</div>
-
-<div id="center-spinner" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; justify-content:center; align-items:center;">
-  <div class="spinner-border text-light" style="width:3rem; height:3rem;" role="status">
-    <span class="visually-hidden">Loading...</span>
+      <%= render "form", prompt_request: @prompt_request %>
+    </div>
   </div>
 </div>
-
-<script>
-  function showLoadingAndSubmit() {
-    document.getElementById('center-spinner').style.display = 'flex';
-    document.querySelector('form').requestSubmit();
-  }
-</script>

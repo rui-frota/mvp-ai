@@ -13,29 +13,32 @@
     </div>
   <% end %>
 
-  <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white">
-      <h5 class="card-title mb-0">
-        <i class="bi bi-file-earmark-arrow-up me-2"></i>
+  <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 12px; overflow: hidden;">
+    <div class="card-header border-0" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white;">
+      <h5 class="card-title mb-0 d-flex align-items-center">
+        <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 8px; margin-right: 12px;">
+          <i class="bi bi-file-earmark-arrow-up" style="font-size: 1.2rem;"></i>
+        </div>
         <%= t('processed_files.form.upload_document') %>
       </h5>
     </div>
-    <div class="card-body">
+    <div class="card-body p-4">
       <div class="mb-4">
         <%= form.file_field :document, 
-          class: "form-control form-control-lg", 
+          class: "form-control form-control-lg border-0 shadow-sm", 
           accept: ".txt,.pdf,.doc,.docx,.md",
           required: true,
+          style: "background: rgba(103, 126, 234, 0.05); border-radius: 12px;",
           "data-bs-toggle": "tooltip",
           title: t('processed_files.form.file_tooltip'),
           placeholder: t('processed_files.form.file_placeholder') %>
-        <div class="form-text">
-          <i class="bi bi-info-circle me-1"></i>
-          <%= t('processed_files.form.supported_formats') %>
+        <div class="form-text mt-2">
+          <i class="bi bi-info-circle me-1 text-primary"></i>
+          <span style="color: #6c757d;"><%= t('processed_files.form.supported_formats') %></span>
         </div>
       </div>
       
-      <div class="mb-3">
+      <div class="mb-4">
         <%= form.select :summary_type, 
           options_for_select([
             [t('processed_files.summary_types.detailed'), 'detailed'],
@@ -44,16 +47,27 @@
             [t('processed_files.summary_types.executive'), 'executive']
           ], processed_file.summary_type || 'detailed'),
           {},
-          { class: "form-select" } %>
-        <div class="form-text">
-          <%= t('processed_files.form.summary_type_help') %>
+          { class: "form-select form-select-lg border-0 shadow-sm", 
+            style: "background: rgba(248, 250, 252, 0.9) url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"%23ffffff\" viewBox=\"0 0 16 16\"><path d=\"M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z\"/></svg>') no-repeat right 12px center; border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6); padding-right: 40px;" } %>
+        <div class="form-text mt-2">
+          <i class="bi bi-gear me-1 text-primary"></i>
+          <span style="color: #6c757d;"><%= t('processed_files.form.summary_type_help') %></span>
         </div>
       </div>
       
-      <div class="d-grid gap-2">
-        <button id="process-btn" type="button" class="btn btn-primary btn-lg" onclick="showLoadingAndSubmit()" data-bs-toggle="tooltip" title="<%= t('processed_files.form.submit_tooltip') %>">
-          <span id="btn-text">
-            <i class="bi bi-cpu me-2"></i>
+      <div class="d-grid">
+        <button id="process-btn" type="button" 
+          class="btn btn-lg border-0 shadow-lg" 
+          style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; border-radius: 12px; padding: 15px; transition: all 0.3s ease;"
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(99, 102, 241, 0.4)'"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
+          onclick="showLoadingAndSubmit()" 
+          data-bs-toggle="tooltip" 
+          title="<%= t('processed_files.form.submit_tooltip') %>">
+          <span id="btn-text" class="d-flex align-items-center justify-content-center">
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 6px; margin-right: 10px;">
+              <i class="bi bi-cpu" style="font-size: 1.1rem;"></i>
+            </div>
             <%= t('processed_files.form.submit_button') %>
           </span>
         </button>

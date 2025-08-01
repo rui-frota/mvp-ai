@@ -1,8 +1,11 @@
-<%= bootstrap_form_with(model: prompt_request) do |form| %>
+<%= bootstrap_form_with(model: prompt_request, local: true, html: { class: "needs-validation", novalidate: true }) do |form| %>
   <% if prompt_request.errors.any? %>
-    <div style="color: red">
-      <h2><%= t('prompt_requests.form.errors_title', count: prompt_request.errors.count) %></h2>
-      <ul>
+    <div class="alert alert-danger" role="alert">
+      <h5 class="alert-heading">
+        <i class="bi bi-exclamation-triangle me-2"></i>
+        <%= t('prompt_requests.form.errors_title', count: prompt_request.errors.count) %>
+      </h5>
+      <ul class="mb-0">
         <% prompt_request.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -10,16 +13,95 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.text_area :input_text %>
-  </div>
-
-  <div>
-    <%= form.select :action_type, [
-      t('prompt_requests.actions.answer'),
-      t('prompt_requests.actions.translate_br_us'), 
-      t('prompt_requests.actions.translate_us_br'), 
-      t('prompt_requests.actions.summarize')
-    ] %>
+  <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 12px; overflow: hidden;">
+    <div class="card-header border-0" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white;">
+      <h5 class="card-title mb-0 d-flex align-items-center">
+        <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 8px; margin-right: 12px;">
+          <i class="bi bi-chat-text" style="font-size: 1.2rem;"></i>
+        </div>
+        Nova Solicitação de Prompt
+      </h5>
+    </div>
+    <div class="card-body p-4">
+      <div class="mb-4">
+        <%= form.text_area :input_text, 
+          class: "form-control form-control-lg shadow-sm", 
+          rows: 4,
+          required: true,
+          style: "background: rgba(248, 250, 252, 0.9); border-radius: 12px; resize: vertical; border: 1px solid rgba(226, 232, 240, 0.6);",
+          placeholder: "Digite seu texto aqui..." %>
+        <div class="form-text mt-2">
+          <i class="bi bi-info-circle me-1 text-primary"></i>
+          <span style="color: #6c757d;">Descreva o que você gostaria que a IA faça com seu texto</span>
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <%= form.select :action_type, 
+          options_for_select([
+            [t('prompt_requests.actions.answer'), 'answer'],
+            [t('prompt_requests.actions.translate_br_us'), 'translate_br_us'],
+            [t('prompt_requests.actions.translate_us_br'), 'translate_us_br'],
+            [t('prompt_requests.actions.summarize'), 'summarize']
+          ], prompt_request.action_type || 'answer'),
+          {},
+          { class: "form-select form-select-lg shadow-sm", 
+            style: "background: rgba(248, 250, 252, 0.9) url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"%23ffffff\" viewBox=\"0 0 16 16\"><path d=\"M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z\"/></svg>') no-repeat right 12px center; border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6); padding-right: 40px;" } %>
+        <div class="form-text mt-2">
+          <i class="bi bi-gear me-1 text-primary"></i>
+          <span style="color: #6c757d;">Escolha o tipo de processamento que deseja aplicar</span>
+        </div>
+      </div>
+      
+      <div class="d-grid">
+        <button id="process-btn" type="button" 
+          class="btn btn-lg border-0 shadow-lg" 
+          style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; border-radius: 12px; padding: 15px; transition: all 0.3s ease;"
+          onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(99, 102, 241, 0.4)'"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.2)'"
+          onclick="showLoadingAndSubmit()" 
+          data-bs-toggle="tooltip" 
+          title="Processar solicitação com inteligência artificial">
+          <span id="btn-text" class="d-flex align-items-center justify-content-center">
+            <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 6px; margin-right: 10px;">
+              <i class="bi bi-cpu" style="font-size: 1.1rem;"></i>
+            </div>
+            <%= t('helpers.submit') %>
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 <% end %>
+
+<div id="center-spinner" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; justify-content:center; align-items:center;">
+  <div class="spinner-border text-light" style="width:3rem; height:3rem;" role="status">
+    <span class="visually-hidden">Processando...</span>
+  </div>
+</div>
+
+<script>
+  // Initialize Bootstrap tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+  
+  // Loading function for form submission
+  function showLoadingAndSubmit() {
+    // Validate form before showing loader
+    const form = document.querySelector('form');
+    const textInput = document.querySelector('textarea[name="prompt_request[input_text]"]');
+    
+    if (!textInput.value.trim()) {
+      alert('Por favor, digite um texto para processar.');
+      return;
+    }
+    
+    // Show loading spinner
+    document.getElementById('center-spinner').style.display = 'flex';
+    
+    // Submit the form
+    form.requestSubmit();
+  }
+</script>
