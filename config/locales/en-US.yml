@@ -1,4 +1,64 @@
 en-US:
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+    day_names:
+      - Sunday
+      - Monday
+      - Tuesday
+      - Wednesday
+      - Thursday
+      - Friday
+      - Saturday
+    abbr_day_names:
+      - Sun
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+    month_names:
+      - 
+      - January
+      - February
+      - March
+      - April
+      - May
+      - June
+      - July
+      - August
+      - September
+      - October
+      - November
+      - December
+    abbr_month_names:
+      - 
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+    order:
+      - :month
+      - :day
+      - :year
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b, %H:%M"
+      long: "%A, %B %d, %Y %H:%M"
+    am: 'am'
+    pm: 'pm'
   activerecord:
     models:
       prompt_request: "Prompt Request"
@@ -15,6 +75,18 @@ en-US:
         summary: "Summary"
         status: "Status"
         filename: "Filename"
+    errors:
+      models:
+        processed_file:
+          attributes:
+            document:
+              blank: "is required"
+            summary_type:
+              blank: "is required"
+              inclusion: "must be one of the valid types"
+            status:
+              blank: "is required"
+              inclusion: "must be a valid status"
   prompt_requests:
     form:
       errors_title: "%{count} error(s) prohibited this prompt_request from being saved:"
@@ -26,7 +98,7 @@ en-US:
       translate_us_br: "Translate US/BR"
       summarize: "Summarize"
     index:
-      title: "Prompt requests"
+      title: "Prompt Requests"
       show: "Show this prompt request"
       new: "New prompt request"
     show:
@@ -44,14 +116,17 @@ en-US:
       processing_request: "Error processing request"
   processed_files:
     form:
-      errors_title: "%{count} error(s) prevented this file from being processed:"
-      upload_document: "Document Upload"
-      file_tooltip: "Select a file to process with AI"
-      supported_formats: "Supported formats: TXT, PDF, DOC, DOCX, MD (max. 10MB)"
-      summary_type_help: "Choose the type of summary you want to generate"
-      submit_button: "Process Document"
-      submit_tooltip: "Submit file for AI processing"
-      file_too_large: "File too large! Maximum allowed: 10MB"
+      errors_title: "%{count} error(s) found"
+      upload_document: "Upload Document"
+      file_tooltip: "Select a text, PDF, Word or Markdown file"
+      file_placeholder: "Choose file..."
+      supported_formats: "Supported formats: .txt, .pdf, .md (max. 10MB)"
+      summary_type_help: "Choose the type of summary that best fits your needs"
+      submit_tooltip: "Process file with artificial intelligence"
+      submit_button: "Process with AI"
+      file_too_large: "The file is too large. Maximum allowed size is 10MB."
+      processing: "Processing..."
+      select_file_alert: "Please select a file to process."
     summary_types:
       detailed: "Detailed Summary"
       brief: "Brief Summary"
@@ -68,6 +143,18 @@ en-US:
       destroy: "Delete file"
       download: "Download summary"
       reprocess: "Reprocess"
+      default_title: "Processed Document"
+      loading: "Loading..."
+      processing_message: "Please wait while we process your document..."
+      error_message: "An error occurred while processing the document. Please try again."
+      pending_title: "Pending Document"
+      pending_message: "The document is awaiting processing."
+      file_info: "File Information"
+      file_label: "File"
+      summary_type_label: "Summary Type"
+      status_label: "Status"
+      created_at_label: "Created at"
+      actions: "Actions"
     notices:
       created: "File processed successfully."
       updated: "File updated successfully."

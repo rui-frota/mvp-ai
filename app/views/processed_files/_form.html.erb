@@ -27,7 +27,8 @@
           accept: ".txt,.pdf,.doc,.docx,.md",
           required: true,
           "data-bs-toggle": "tooltip",
-          title: t('processed_files.form.file_tooltip') %>
+          title: t('processed_files.form.file_tooltip'),
+          placeholder: t('processed_files.form.file_placeholder') %>
         <div class="form-text">
           <i class="bi bi-info-circle me-1"></i>
           <%= t('processed_files.form.supported_formats') %>
@@ -63,7 +64,7 @@
 
 <div id="center-spinner" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:9999; justify-content:center; align-items:center;">
   <div class="spinner-border text-light" style="width:3rem; height:3rem;" role="status">
-    <span class="visually-hidden">Processando...</span>
+    <span class="visually-hidden"><%= t('processed_files.form.processing') %></span>
   </div>
 </div>
 
@@ -93,7 +94,7 @@
     const fileInput = document.querySelector('input[type="file"]');
     
     if (!fileInput.files.length) {
-      alert('Por favor, selecione um arquivo para processar.');
+      alert('<%= t('processed_files.form.select_file_alert') %>');
       return;
     }
     

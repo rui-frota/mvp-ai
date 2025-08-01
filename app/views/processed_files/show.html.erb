@@ -18,7 +18,7 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="display-6">
       <i class="bi bi-file-earmark-text me-3"></i>
-      <%= @processed_file.filename || "Documento Processado" %>
+      <%= @processed_file.filename || t('processed_files.show.default_title') %>
     </h1>
     <span class="badge <%= status_badge_class(@processed_file.status) %> fs-6">
       <%= t("processed_files.status.#{@processed_file.status}") %>
@@ -45,10 +45,10 @@
         <div class="card mb-4">
           <div class="card-body text-center">
             <div class="spinner-border text-primary mb-3" role="status">
-              <span class="visually-hidden">Loading...</span>
+              <span class="visually-hidden"><%= t('processed_files.show.loading') %></span>
             </div>
             <h5><%= t('processed_files.notices.processing') %></h5>
-            <p class="text-muted">Por favor, aguarde enquanto processamos seu documento...</p>
+            <p class="text-muted"><%= t('processed_files.show.processing_message') %></p>
           </div>
         </div>
       <% elsif @processed_file.failed? %>
@@ -56,15 +56,15 @@
           <div class="card-body text-center">
             <i class="bi bi-exclamation-triangle display-4 text-danger mb-3"></i>
             <h5 class="text-danger"><%= t('processed_files.errors.processing_file') %></h5>
-            <p class="text-muted">Ocorreu um erro ao processar o documento. Tente novamente.</p>
+            <p class="text-muted"><%= t('processed_files.show.error_message') %></p>
           </div>
         </div>
       <% else %>
         <div class="card mb-4">
           <div class="card-body text-center">
             <i class="bi bi-clock display-4 text-warning mb-3"></i>
-            <h5 class="text-warning">Documento Pendente</h5>
-            <p class="text-muted">O documento está aguardando processamento.</p>
+            <h5 class="text-warning"><%= t('processed_files.show.pending_title') %></h5>
+            <p class="text-muted"><%= t('processed_files.show.pending_message') %></p>
           </div>
         </div>
       <% end %>
@@ -75,27 +75,27 @@
         <div class="card-header">
           <h6 class="card-title mb-0">
             <i class="bi bi-info-circle me-2"></i>
-            Informações do Arquivo
+            <%= t('processed_files.show.file_info') %>
           </h6>
         </div>
         <div class="card-body">
           <dl class="row">
-            <dt class="col-sm-6">Arquivo:</dt>
+            <dt class="col-sm-6"><%= t('processed_files.show.file_label') %>:</dt>
             <dd class="col-sm-6"><%= @processed_file.filename %></dd>
             
-            <dt class="col-sm-6">Tipo de Resumo:</dt>
+            <dt class="col-sm-6"><%= t('processed_files.show.summary_type_label') %>:</dt>
             <dd class="col-sm-6">
               <%= t("processed_files.summary_types.#{@processed_file.summary_type}") if @processed_file.summary_type %>
             </dd>
             
-            <dt class="col-sm-6">Status:</dt>
+            <dt class="col-sm-6"><%= t('processed_files.show.status_label') %>:</dt>
             <dd class="col-sm-6">
               <span class="badge <%= status_badge_class(@processed_file.status) %>">
                 <%= t("processed_files.status.#{@processed_file.status}") %>
               </span>
             </dd>
             
-            <dt class="col-sm-6">Criado em:</dt>
+            <dt class="col-sm-6"><%= t('processed_files.show.created_at_label') %>:</dt>
             <dd class="col-sm-6"><%= l(@processed_file.created_at, format: :long) %></dd>
           </dl>
         </div>
@@ -105,7 +105,7 @@
         <div class="card-header">
           <h6 class="card-title mb-0">
             <i class="bi bi-gear me-2"></i>
-            Ações
+            <%= t('processed_files.show.actions') %>
           </h6>
         </div>
         <div class="card-body">
