@@ -37,7 +37,7 @@
         onmouseout: "this.style.background='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(0)'",
         title: t('processed_files.index.title') do %>
         <i class="bi bi-file-earmark-arrow-up"></i>
-        Arquivos
+        <%= t('prompt_requests.index.files_link') %>
       <% end %>
     </div>
   </div>
@@ -85,7 +85,7 @@
                       </div>
                     <% else %>
                       <div style="background: rgba(249, 250, 251, 0.7); border-radius: 8px; padding: 12px; color: #9ca3af; font-style: italic;">
-                        Aguardando processamento...
+                        <%= t('prompt_requests.index.pending_output') %>
                       </div>
                     <% end %>
                   </div>
@@ -106,7 +106,7 @@
                     onmouseout: "this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.1)'",
                     title: t('prompt_requests.index.show') do %>
                     <i class="bi bi-eye me-1"></i>
-                    Visualizar
+                    <%= t('prompt_requests.index.view_button') %>
                   <% end %>
                 </div>
               </div>
@@ -123,8 +123,8 @@
             <i class="bi bi-chat-dots display-4 text-white"></i>
           </div>
         </div>
-        <h3 style="color: #1f2937; margin-bottom: 12px; font-weight: 600;">Nenhuma solicitação encontrada</h3>
-        <p style="color: #6b7280; margin-bottom: 32px; font-size: 1.1rem;">Crie sua primeira solicitação de prompt para começar</p>
+        <h3 style="color: #1f2937; margin-bottom: 12px; font-weight: 600;"><%= t('prompt_requests.index.no_requests') %></h3>
+        <p style="color: #6b7280; margin-bottom: 32px; font-size: 1.1rem;"><%= t('prompt_requests.index.create_first') %></p>
         <div class="d-flex gap-3 justify-content-center">
           <%= link_to new_prompt_request_path, 
             class: "btn btn-lg border-0 shadow-lg",
@@ -140,7 +140,7 @@
             onmouseover: "this.style.background='rgba(255, 255, 255, 0.9)'; this.style.transform='translateY(-2px)'",
             onmouseout: "this.style.background='rgba(255, 255, 255, 0.7)'; this.style.transform='translateY(0)'" do %>
             <i class="bi bi-file-earmark-arrow-up me-2"></i>
-            Ir para Arquivos
+            <%= t('prompt_requests.index.go_to_files') %>
           <% end %>
         </div>
       </div>

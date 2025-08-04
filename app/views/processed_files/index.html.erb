@@ -37,7 +37,7 @@
         onmouseout: "this.style.background='rgba(255, 255, 255, 0.1)'; this.style.transform='translateY(0)'",
         title: t('prompt_requests.index.title') do %>
         <i class="bi bi-chat-dots"></i>
-        Prompts
+        <%= t('processed_files.index.prompts_link') %>
       <% end %>
     </div>
   </div>
@@ -84,7 +84,7 @@
                     onmouseout: "this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.1)'",
                     title: t('processed_files.index.show') do %>
                     <i class="bi bi-eye me-1"></i>
-                    Visualizar
+                    <%= t('processed_files.index.view_button') %>
                   <% end %>
                 </div>
               </div>
@@ -118,7 +118,7 @@
             onmouseover: "this.style.background='rgba(255, 255, 255, 0.9)'; this.style.transform='translateY(-2px)'",
             onmouseout: "this.style.background='rgba(255, 255, 255, 0.7)'; this.style.transform='translateY(0)'" do %>
             <i class="bi bi-chat-dots me-2"></i>
-            Ir para Prompts
+            <%= t('processed_files.index.go_to_prompts') %>
           <% end %>
         </div>
       </div>
