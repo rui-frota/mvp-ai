@@ -25,7 +25,7 @@ class PromptRequestsController < ApplicationController
     @prompt_request = PromptRequest.new(prompt_request_params)
 
     prefixed_prompt = if @prompt_request.action_type.present?
-      "#{@prompt_request.action_type}: #{@prompt_request.input_text}"
+      build_specific_prompt(@prompt_request.action_type, @prompt_request.input_text)
     else
       @prompt_request.input_text
     end
@@ -91,6 +91,52 @@ class PromptRequestsController < ApplicationController
         api_response.to_s
       else
         api_response['error'] || I18n.t('prompt_requests.errors.processing_request')
+      end
+    end
+
+    # Build specific prompts based on action type
+    def build_specific_prompt(action_type, input_text)
+      case action_type
+      when 'answer'
+        "Responda à seguinte pergunta de forma clara e detalhada: #{input_text}"
+      when 'explain'
+        "Explique de forma didática e compreensível: #{input_text}"
+      when 'summarize'
+        "Faça um resumo conciso e bem estruturado do seguinte texto: #{input_text}"
+      when 'improve'
+        "Melhore a qualidade, clareza e fluidez do seguinte texto: #{input_text}"
+      when 'correct'
+        "Corrija os erros gramaticais e de ortografia no seguinte texto: #{input_text}"
+      when 'rewrite'
+        "Reescreva o seguinte texto de uma forma mais clara e envolvente: #{input_text}"
+      when 'analyze'
+        "Analise detalhadamente o seguinte conteúdo e forneça insights: #{input_text}"
+      when 'extract_keywords'
+        "Extraia as palavras-chave principais e conceitos importantes do seguinte texto: #{input_text}"
+      when 'create_outline'
+        "Crie uma estrutura organizada (outline) baseada no seguinte conteúdo: #{input_text}"
+      when 'bullet_points'
+        "Converta o seguinte texto em uma lista de tópicos organizados: #{input_text}"
+      when 'tone_formal'
+        "Reescreva o seguinte texto adotando um tom formal e profissional: #{input_text}"
+      when 'tone_casual'
+        "Reescreva o seguinte texto adotando um tom casual e conversacional: #{input_text}"
+      when 'creative_writing'
+        "Use criatividade para expandir e enriquecer o seguinte texto: #{input_text}"
+      when 'create_email'
+        "Crie um e-mail profissional baseado nas seguintes informações: #{input_text}"
+      when 'generate_ideas'
+        "Gere ideias criativas e úteis relacionadas ao seguinte tópico: #{input_text}"
+      when 'question_answer'
+        "Crie perguntas relevantes e suas respectivas respostas sobre: #{input_text}"
+      when 'code_review'
+        "Revise o seguinte código e forneça sugestões de melhoria: #{input_text}"
+      when 'translate_br_us'
+        "Traduza o seguinte texto do português brasileiro para o inglês americano: #{input_text}"
+      when 'translate_us_br'
+        "Traduza o seguinte texto do inglês americano para o português brasileiro: #{input_text}"
+      else
+        input_text
       end
     end
 end

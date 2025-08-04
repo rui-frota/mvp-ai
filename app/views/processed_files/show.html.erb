@@ -106,7 +106,7 @@
             </dd>
             
             <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.created_at_label') %>:</dt>
-            <dd class="col-sm-6" style="color: #6b7280;"><%= l(@processed_file.created_at, format: :long) %></dd>
+            <dd class="col-sm-6" style="color: #6b7280;"><%= format_brasilia_time(@processed_file.created_at, :long) %></dd>
           </dl>
         </div>
       </div>

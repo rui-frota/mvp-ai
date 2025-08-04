@@ -56,9 +56,10 @@ pt-BR:
     formats:
       default: "%a, %d de %B de %Y, %H:%M:%S %z"
       short: "%d de %B, %H:%M"
-      long: "%A, %d de %B de %Y, %H:%M"
-    am: ''
-    pm: ''
+      long: "%A, %d de %B de %Y às %H:%M"
+      with_zone: "%d de %B de %Y às %H:%M (horário de Brasília)"
+    am: 'AM'
+    pm: 'PM'
   activerecord:
     models:
       prompt_request: "Solicitação de Prompt"
@@ -95,7 +96,7 @@ pt-BR:
       new_title: "Nova Solicitação de Prompt"
       input_placeholder: "Digite seu texto aqui..."
       input_help: "Descreva o que você gostaria que a IA faça com seu texto"
-      action_help: "Escolha o tipo de processamento que deseja aplicar"
+      action_help: "Escolha como você gostaria que a IA processe seu texto"
       submit_button: "Gerar solicitação"
       submit_tooltip: "Processar solicitação com inteligência artificial"
       processing: "Processando..."
@@ -105,6 +106,21 @@ pt-BR:
       translate_br_us: "Traduzir BR/US"
       translate_us_br: "Traduzir US/BR"
       summarize: "Resumir"
+      explain: "Explicar"
+      improve: "Melhorar Texto"
+      correct: "Corrigir Gramática"
+      rewrite: "Reescrever"
+      analyze: "Analisar"
+      extract_keywords: "Extrair Palavras-chave"
+      create_outline: "Criar Estrutura"
+      generate_ideas: "Gerar Ideias"
+      tone_formal: "Tornar Formal"
+      tone_casual: "Tornar Casual"
+      code_review: "Revisar Código"
+      create_email: "Criar E-mail"
+      bullet_points: "Converter em Tópicos"
+      question_answer: "Perguntas e Respostas"
+      creative_writing: "Escrita Criativa"
     index:
       title: "Solicitações de Prompt"
       show: "Mostrar esta solicitação de prompt"

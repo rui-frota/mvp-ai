@@ -38,11 +38,36 @@
       
       <div class="mb-4">
         <%= form.select :action_type, 
-          options_for_select([
-            [t('prompt_requests.actions.answer'), 'answer'],
-            [t('prompt_requests.actions.translate_br_us'), 'translate_br_us'],
-            [t('prompt_requests.actions.translate_us_br'), 'translate_us_br'],
-            [t('prompt_requests.actions.summarize'), 'summarize']
+          grouped_options_for_select([
+            ["📝 Texto & Escrita", [
+              [t('prompt_requests.actions.answer'), 'answer'],
+              [t('prompt_requests.actions.explain'), 'explain'],
+              [t('prompt_requests.actions.summarize'), 'summarize'],
+              [t('prompt_requests.actions.improve'), 'improve'],
+              [t('prompt_requests.actions.correct'), 'correct'],
+              [t('prompt_requests.actions.rewrite'), 'rewrite']
+            ]],
+            ["🌍 Tradução", [
+              [t('prompt_requests.actions.translate_br_us'), 'translate_br_us'],
+              [t('prompt_requests.actions.translate_us_br'), 'translate_us_br']
+            ]],
+            ["📊 Análise & Estrutura", [
+              [t('prompt_requests.actions.analyze'), 'analyze'],
+              [t('prompt_requests.actions.extract_keywords'), 'extract_keywords'],
+              [t('prompt_requests.actions.create_outline'), 'create_outline'],
+              [t('prompt_requests.actions.bullet_points'), 'bullet_points']
+            ]],
+            ["🎨 Tom & Estilo", [
+              [t('prompt_requests.actions.tone_formal'), 'tone_formal'],
+              [t('prompt_requests.actions.tone_casual'), 'tone_casual'],
+              [t('prompt_requests.actions.creative_writing'), 'creative_writing']
+            ]],
+            ["💼 Produtividade", [
+              [t('prompt_requests.actions.create_email'), 'create_email'],
+              [t('prompt_requests.actions.generate_ideas'), 'generate_ideas'],
+              [t('prompt_requests.actions.question_answer'), 'question_answer'],
+              [t('prompt_requests.actions.code_review'), 'code_review']
+            ]]
           ], prompt_request.action_type || 'answer'),
           {},
           { class: "form-select form-select-lg shadow-sm", 

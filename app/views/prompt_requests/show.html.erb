@@ -101,7 +101,7 @@
             
             <dt class="col-sm-5" style="color: #374151; font-weight: 600; font-size: 0.875rem;">Criado em:</dt>
             <dd class="col-sm-7" style="color: #6b7280; font-size: 0.875rem;">
-              <%= l(@prompt_request.created_at, format: :long) %>
+              <%= format_brasilia_time(@prompt_request.created_at, :long) %>
             </dd>
             
             <% if @prompt_request.updated_at != @prompt_request.created_at %>

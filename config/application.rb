@@ -11,6 +11,9 @@ module MvpAi
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
+    # Set timezone to Brasília
+    config.time_zone = "America/Sao_Paulo"
+
     # config.i18n.default_locale = :"en-US"
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
