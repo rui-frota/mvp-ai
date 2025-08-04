@@ -21,7 +21,6 @@ class PromptRequestsController < ApplicationController
 
   # POST /prompt_requests or /prompt_requests.json
   def create
-    # binding.pry
     @prompt_request = PromptRequest.new(prompt_request_params)
 
     prefixed_prompt = if @prompt_request.action_type.present?
