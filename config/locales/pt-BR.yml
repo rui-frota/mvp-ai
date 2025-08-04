@@ -145,6 +145,12 @@ pt-BR:
       failed: "falhou"
     errors:
       processing_request: "Erro ao processar solicitação"
+      content_blocked: "Conteúdo bloqueado por medidas de segurança"
+      content_too_long: "Texto muito longo (máximo %{max} caracteres)"
+      offensive_content: "Conteúdo ofensivo detectado"
+      sensitive_topics: "Conteúdo sobre tópicos sensíveis detectado"
+      personal_info: "Possível informação pessoal detectada"
+      custom_filter: "Conteúdo bloqueado por filtros personalizados"
   processed_files:
     form:
       errors_title: "%{count} erro(s) encontrado(s)"

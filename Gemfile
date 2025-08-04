@@ -49,6 +49,11 @@ gem "bootstrap_form"
 # Gem para processar PDFs
 gem "pdf-reader"
 
+# Content moderation and safety guardrails
+gem "obscenity"           # Profanity and offensive content detection
+gem "ruby-openai"         # For OpenAI moderation API
+gem "profanity_filter"    # Alternative profanity filter
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]

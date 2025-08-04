@@ -23,18 +23,43 @@ class PromptRequestsController < ApplicationController
   def create
     @prompt_request = PromptRequest.new(prompt_request_params)
 
+    # 🛡️ GUARDRAILS: Moderação do input
+    input_moderation = ContentModerationService.moderate_input(@prompt_request.input_text)
+    
+    unless input_moderation[:approved]
+      @prompt_request.errors.add(:input_text, "Conteúdo não permitido: #{input_moderation[:reasons].join(', ')}")
+      
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @prompt_request.errors, status: :unprocessable_entity }
+      end
+      return
+    end
+
     prefixed_prompt = if @prompt_request.action_type.present?
       build_specific_prompt(@prompt_request.action_type, @prompt_request.input_text)
     else
       @prompt_request.input_text
     end
-    @prompt_request.output_text = generate_output_text(prefixed_prompt)
+    
+    raw_output = generate_output_text(prefixed_prompt)
+    
+    # 🛡️ GUARDRAILS: Moderação do output
+    output_moderation = ContentModerationService.moderate_output(raw_output)
+    
+    @prompt_request.output_text = output_moderation[:text]
     @prompt_request.status = I18n.t('prompt_requests.status.pending')
     @prompt_request.input_text = @prompt_request.input_text.strip if @prompt_request.input_text.present?
     @prompt_request.output_text = @prompt_request.output_text.strip if @prompt_request.output_text.present?
+    
     error_message = I18n.t('prompt_requests.errors.processing_request')
     @prompt_request.status = I18n.t('prompt_requests.status.completed') if @prompt_request.output_text.present? && @prompt_request.output_text != error_message
     @prompt_request.status = I18n.t('prompt_requests.status.failed') if @prompt_request.output_text.blank? || @prompt_request.output_text == error_message
+    
+    # Log de moderação para auditoria
+    if !output_moderation[:approved]
+      Rails.logger.warn "🛡️ Output moderado - Riscos: #{output_moderation[:reasons].join(', ')} - Nível: #{output_moderation[:risk_level]}"
+    end
 
     respond_to do |format|
       if @prompt_request.save
