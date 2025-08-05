@@ -30,20 +30,38 @@ class ApiClient
     response_text.strip
   end
 
-  def self.summarize_document(document_text, model: 'llama3', summary_type: 'detailed')
+  def self.summarize_document(document_text, model: 'llama3', action_type: 'detailed')
     prompt_templates = {
+      # Tipos de Resumo
       'brief' => "Faça um resumo breve (2-3 parágrafos) do seguinte documento:\n\n#{document_text}",
       'detailed' => "Faça um resumo detalhado do seguinte documento, incluindo os pontos principais e conclusões:\n\n#{document_text}",
       'bullet_points' => "Extraia os pontos principais do seguinte documento em formato de lista:\n\n#{document_text}",
-      'executive' => "Faça um resumo executivo profissional do seguinte documento:\n\n#{document_text}"
+      'executive' => "Faça um resumo executivo profissional do seguinte documento:\n\n#{document_text}",
+      # Tradução
+      'translate_br_us' => "Traduza o seguinte documento do português brasileiro para o inglês americano:\n\n#{document_text}",
+      'translate_us_br' => "Traduza o seguinte documento do inglês americano para o português brasileiro:\n\n#{document_text}",
+      # Análise Avançada
+      'sentiment_analysis' => "Analise o sentimento do seguinte documento:\n\n#{document_text}",
+      'keyword_extraction' => "Extraia as palavras-chave principais do seguinte documento:\n\n#{document_text}",
+      'theme_identification' => "Identifique os tópicos principais do seguinte documento:\n\n#{document_text}",
+      'structure_analysis' => "Analise a estrutura e organização do seguinte documento:\n\n#{document_text}",
+      # Processamento Específico
+      'grammar_correction' => "Corrija a gramática do seguinte documento:\n\n#{document_text}",
+      'text_simplification' => "Simplifique o texto do seguinte documento:\n\n#{document_text}",
+      'standard_formatting' => "Formate o seguinte documento seguindo padrões:\n\n#{document_text}",
+      # Relatórios
+      'full_report' => "Faça um relatório completo do seguinte documento:\n\n#{document_text}",
+      'executive_report' => "Faça um relatório executivo do seguinte documento:\n\n#{document_text}",
+      'comparative_analysis' => "Faça uma análise comparativa dos elementos do seguinte documento:\n\n#{document_text}",
+      'quality_metrics' => "Analise as métricas de qualidade do seguinte documento:\n\n#{document_text}"
     }
     
-    prompt = prompt_templates[summary_type] || prompt_templates['detailed']
+    prompt = prompt_templates[action_type] || prompt_templates['detailed']
     generate(prompt, model: model)
   end
 
   # Método para processar arquivos de texto
-  def self.summarize_file(file_path, model: 'llama3', summary_type: 'detailed')
+  def self.summarize_file(file_path, model: 'llama3', action_type: 'detailed')
     unless File.exist?(file_path)
       raise "Arquivo não encontrado: #{file_path}"
     end
@@ -55,11 +73,11 @@ class ApiClient
     end
 
     document_text = File.read(file_path, encoding: 'UTF-8')
-    summarize_document(document_text, model: model, summary_type: summary_type)
+    summarize_document(document_text, model: model, action_type: action_type)
   rescue Encoding::InvalidByteSequenceError
     # Tentar outras codificações
     document_text = File.read(file_path, encoding: 'ISO-8859-1')
-    summarize_document(document_text, model: model, summary_type: summary_type)
+    summarize_document(document_text, model: model, action_type: action_type)
   end
 
   # Método para processar documentos grandes em chunks
@@ -74,7 +92,7 @@ class ApiClient
 
     chunks.each_with_index do |chunk, index|
       puts "Processando chunk #{index + 1}/#{chunks.length}..."
-      summary = summarize_document(chunk, model: model, summary_type: 'brief')
+      summary = summarize_document(chunk, model: model, action_type: 'brief')
       chunk_summaries << summary
     end
 

@@ -72,7 +72,7 @@ pt-BR:
         status: "Status"
       processed_file:
         document: "Documento"
-        summary_type: "Tipo de resumo"
+        action_type: "Tipo de ação"
         summary: "Resumo"
         status: "Status"
         filename: "Nome do arquivo"
@@ -82,7 +82,7 @@ pt-BR:
           attributes:
             document:
               blank: "é obrigatório"
-            summary_type:
+            action_type:
               blank: "é obrigatório"
               inclusion: "deve ser um dos tipos válidos"
             status:
@@ -158,6 +158,7 @@ pt-BR:
       file_tooltip: "Selecione um arquivo de texto, PDF, Word ou Markdown"
       file_placeholder: "Escolher arquivo..."
       supported_formats: "Formatos suportados: .txt, .pdf, .md (máx. 10MB)"
+      action_type_help: "Escolha o tipo de processamento que deseja aplicar ao seu documento"
       summary_type_help: "Escolha o tipo de resumo que melhor atende às suas necessidades"
       submit_tooltip: "Processar arquivo com inteligência artificial"
       submit_button: "Processar com IA"
@@ -169,6 +170,35 @@ pt-BR:
       brief: "Resumo Breve"
       bullet_points: "Pontos Principais"
       executive: "Resumo Executivo"
+    action_types:
+      # Tipos de Resumo
+      detailed: "Resumo Detalhado"
+      brief: "Resumo Breve"
+      bullet_points: "Pontos Principais"
+      executive: "Resumo Executivo"
+      # Tradução
+      translate_br_us: "Traduzir BR/US"
+      translate_us_br: "Traduzir US/BR"
+      # Análise Avançada
+      sentiment_analysis: "Análise de Sentimentos"
+      keyword_extraction: "Extração de Palavras-chave"
+      theme_identification: "Identificação de Temas"
+      structure_analysis: "Análise de Estrutura"
+      # Processamento Específico
+      grammar_correction: "Correção Gramatical"
+      text_simplification: "Simplificação de Texto"
+      standard_formatting: "Formatação Padronizada"
+      # Relatórios
+      full_report: "Relatório Completo"
+      executive_report: "Relatório Executivo"
+      comparative_analysis: "Análise Comparativa"
+      quality_metrics: "Métricas de Qualidade"
+    action_type_groups:
+      summary_types: "📋 Tipos de Resumo"
+      translation: "🌍 Tradução"
+      advanced_analysis: "📊 Análise Avançada"
+      text_processing: "� Processamento de Texto"
+      reports: "📈 Relatórios"
     index:
       title: "Arquivos Processados"
       show: "Visualizar arquivo"
@@ -192,6 +222,7 @@ pt-BR:
       file_info: "Informações do Arquivo"
       file_label: "Arquivo"
       summary_type_label: "Tipo de Resumo"
+      action_type_label: "Tipo de Ação"
       status_label: "Status"
       created_at_label: "Criado em"
       actions: "Ações"

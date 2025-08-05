@@ -25,10 +25,9 @@
     <div class="card-body p-4">
       <div class="mb-4">
         <%= form.file_field :document, 
-          class: "form-control form-control-lg border-0 shadow-sm", 
+          class: "form-control form-control-lg border-0 shadow-sm custom-input", 
           accept: ".txt,.pdf,.doc,.docx,.md",
           required: true,
-          style: "background: rgba(103, 126, 234, 0.05); border-radius: 12px;",
           "data-bs-toggle": "tooltip",
           title: t('processed_files.form.file_tooltip'),
           placeholder: t('processed_files.form.file_placeholder') %>
@@ -39,19 +38,41 @@
       </div>
       
       <div class="mb-4">
-        <%= form.select :summary_type, 
-          options_for_select([
-            [t('processed_files.summary_types.detailed'), 'detailed'],
-            [t('processed_files.summary_types.brief'), 'brief'],
-            [t('processed_files.summary_types.bullet_points'), 'bullet_points'],
-            [t('processed_files.summary_types.executive'), 'executive']
-          ], processed_file.summary_type || 'detailed'),
+        <%= form.select :action_type, 
+          grouped_options_for_select([
+            [t('processed_files.action_type_groups.summary_types'), [
+              [t('processed_files.action_types.detailed'), 'detailed'],
+              [t('processed_files.action_types.brief'), 'brief'],
+              [t('processed_files.action_types.bullet_points'), 'bullet_points'],
+              [t('processed_files.action_types.executive'), 'executive']
+            ]],
+            [t('processed_files.action_type_groups.translation'), [
+              [t('prompt_requests.actions.translate_br_us'), 'translate_br_us'],
+              [t('prompt_requests.actions.translate_us_br'), 'translate_us_br']
+            ]],
+            [t('processed_files.action_type_groups.advanced_analysis'), [
+              [t('processed_files.action_types.sentiment_analysis'), 'sentiment_analysis'],
+              [t('processed_files.action_types.keyword_extraction'), 'keyword_extraction'],
+              [t('processed_files.action_types.theme_identification'), 'theme_identification'],
+              [t('processed_files.action_types.structure_analysis'), 'structure_analysis']
+            ]],
+            [t('processed_files.action_type_groups.text_processing'), [
+              [t('processed_files.action_types.grammar_correction'), 'grammar_correction'],
+              [t('processed_files.action_types.text_simplification'), 'text_simplification'],
+              [t('processed_files.action_types.standard_formatting'), 'standard_formatting']
+            ]],
+            [t('processed_files.action_type_groups.reports'), [
+              [t('processed_files.action_types.full_report'), 'full_report'],
+              [t('processed_files.action_types.executive_report'), 'executive_report'],
+              [t('processed_files.action_types.comparative_analysis'), 'comparative_analysis'],
+              [t('processed_files.action_types.quality_metrics'), 'quality_metrics']
+            ]]
+          ], processed_file.action_type || 'detailed'),
           {},
-          { class: "form-select form-select-lg border-0 shadow-sm", 
-            style: "background: rgba(248, 250, 252, 0.9) url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"%23ffffff\" viewBox=\"0 0 16 16\"><path d=\"M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z\"/></svg>') no-repeat right 12px center; border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6); padding-right: 40px;" } %>
+          { class: "form-select form-select-lg border-0 shadow-sm custom-select" } %>
         <div class="form-text mt-2">
           <i class="bi bi-gear me-1 text-primary"></i>
-          <span style="color: #6c757d;"><%= t('processed_files.form.summary_type_help') %></span>
+          <span style="color: #6c757d;"><%= t('processed_files.form.action_type_help') %></span>
         </div>
       </div>
       
@@ -119,3 +140,57 @@
     form.requestSubmit();
   }
 </script>
+
+<style>
+  /* Estilos customizados para os inputs com maior especificidade */
+  .card .form-control.custom-input,
+  .card .form-select.custom-select {
+    background-color: rgba(241, 245, 249, 0.85) !important;
+    border: 1px solid rgba(226, 232, 240, 0.6) !important;
+    border-radius: 12px !important;
+    color: #374151 !important; /* Cor do texto mais escura */
+  }
+  
+  .card .form-control.custom-input:focus,
+  .card .form-select.custom-select:focus {
+    background-color: rgba(248, 250, 252, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+    color: #1f2937 !important; /* Cor do texto ainda mais escura no foco */
+  }
+  
+  .card .form-select.custom-select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23374151' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 40px !important;
+  }
+  
+  /* Fallback para todos os form-control e form-select */
+  .form-control, .form-select {
+    background-color: rgba(241, 245, 249, 0.85) !important;
+    border: 1px solid rgba(226, 232, 240, 0.6) !important;
+    border-radius: 12px !important;
+    color: #374151 !important; /* Cor do texto mais escura */
+  }
+  
+  .form-control:focus, .form-select:focus {
+    background-color: rgba(248, 250, 252, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+    color: #1f2937 !important; /* Cor do texto ainda mais escura no foco */
+  }
+  
+  .form-select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23374151' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 40px !important;
+  }
+  
+  /* Estilo específico para as opções do select */
+  .form-select option {
+    color: #1f2937 !important;
+    background-color: #ffffff !important;
+  }
+</style>

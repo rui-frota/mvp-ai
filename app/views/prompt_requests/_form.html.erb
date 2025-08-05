@@ -25,10 +25,9 @@
     <div class="card-body p-4">
       <div class="mb-4">
         <%= form.text_area :input_text, 
-          class: "form-control form-control-lg shadow-sm", 
+          class: "form-control form-control-lg shadow-sm custom-input", 
           rows: 4,
           required: true,
-          style: "background: rgba(248, 250, 252, 0.9); border-radius: 12px; resize: vertical; border: 1px solid rgba(226, 232, 240, 0.6);",
           placeholder: t('prompt_requests.form.input_placeholder') %>
         <div class="form-text mt-2">
           <i class="bi bi-info-circle me-1 text-primary"></i>
@@ -70,8 +69,7 @@
             ]]
           ], prompt_request.action_type || 'answer'),
           {},
-          { class: "form-select form-select-lg shadow-sm", 
-            style: "background: rgba(248, 250, 252, 0.9) url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"%23ffffff\" viewBox=\"0 0 16 16\"><path d=\"M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z\"/></svg>') no-repeat right 12px center; border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.6); padding-right: 40px;" } %>
+          { class: "form-select form-select-lg shadow-sm custom-select" } %>
         <div class="form-text mt-2">
           <i class="bi bi-gear me-1 text-primary"></i>
           <span style="color: #6c757d;"><%= t('prompt_requests.form.action_help') %></span>
@@ -130,3 +128,58 @@
     form.requestSubmit();
   }
 </script>
+
+<style>
+  /* Estilos customizados para os inputs com maior especificidade */
+  .card .form-control.custom-input,
+  .card .form-select.custom-select {
+    background-color: rgba(241, 245, 249, 0.85) !important;
+    border: 1px solid rgba(226, 232, 240, 0.6) !important;
+    border-radius: 12px !important;
+    resize: vertical;
+    color: #374151 !important; /* Cor do texto mais escura */
+  }
+  
+  .card .form-control.custom-input:focus,
+  .card .form-select.custom-select:focus {
+    background-color: rgba(248, 250, 252, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+    color: #1f2937 !important; /* Cor do texto ainda mais escura no foco */
+  }
+  
+  .card .form-select.custom-select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23374151' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 40px !important;
+  }
+  
+  /* Fallback para todos os form-control e form-select */
+  .form-control, .form-select {
+    background-color: rgba(241, 245, 249, 0.85) !important;
+    border: 1px solid rgba(226, 232, 240, 0.6) !important;
+    border-radius: 12px !important;
+    color: #374151 !important; /* Cor do texto mais escura */
+  }
+  
+  .form-control:focus, .form-select:focus {
+    background-color: rgba(248, 250, 252, 0.95) !important;
+    border-color: rgba(99, 102, 241, 0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25) !important;
+    color: #1f2937 !important; /* Cor do texto ainda mais escura no foco */
+  }
+  
+  .form-select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23374151' viewBox='0 0 16 16'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    padding-right: 40px !important;
+  }
+  
+  /* Estilo específico para as opções do select */
+  .form-select option {
+    color: #1f2937 !important;
+    background-color: #ffffff !important;
+  }
+</style>

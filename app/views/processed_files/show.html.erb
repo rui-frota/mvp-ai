@@ -34,7 +34,7 @@
               <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 8px; margin-right: 12px;">
                 <i class="bi bi-file-text" style="font-size: 1.2rem;"></i>
               </div>
-              <%= t("processed_files.summary_types.#{@processed_file.summary_type}") %>
+              <%= t("processed_files.action_types.#{@processed_file.action_type}") if @processed_file.action_type %>
             </h5>
           </div>
           <div class="card-body" style="padding: 30px;">
@@ -93,9 +93,9 @@
             <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.file_label') %>:</dt>
             <dd class="col-sm-6" style="color: #6b7280;"><%= @processed_file.filename %></dd>
             
-            <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.summary_type_label') %>:</dt>
+            <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.action_type_label') %>:</dt>
             <dd class="col-sm-6" style="color: #6b7280;">
-              <%= t("processed_files.summary_types.#{@processed_file.summary_type}") if @processed_file.summary_type %>
+              <%= t("processed_files.action_types.#{@processed_file.action_type}") if @processed_file.action_type %>
             </dd>
             
             <dt class="col-sm-6" style="color: #374151; font-weight: 600;"><%= t('processed_files.show.status_label') %>:</dt>

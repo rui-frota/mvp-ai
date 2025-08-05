@@ -71,7 +71,7 @@ en-US:
         status: "Status"
       processed_file:
         document: "Document"
-        summary_type: "Summary type"
+        action_type: "Action type"
         summary: "Summary"
         status: "Status"
         filename: "Filename"
@@ -81,7 +81,7 @@ en-US:
           attributes:
             document:
               blank: "is required"
-            summary_type:
+            action_type:
               blank: "is required"
               inclusion: "must be one of the valid types"
             status:
@@ -158,6 +158,7 @@ en-US:
       file_placeholder: "Choose file..."
       supported_formats: "Supported formats: .txt, .pdf, .md (max. 10MB)"
       summary_type_help: "Choose the type of summary that best fits your needs"
+      action_type_help: "Choose the type of processing you want to apply to your document"
       submit_tooltip: "Process file with artificial intelligence"
       submit_button: "Process with AI"
       file_too_large: "The file is too large. Maximum allowed size is 10MB."
@@ -168,6 +169,35 @@ en-US:
       brief: "Brief Summary"
       bullet_points: "Key Points"
       executive: "Executive Summary"
+    action_types:
+      # Summary Types
+      detailed: "Detailed Summary"
+      brief: "Brief Summary"
+      bullet_points: "Key Points"
+      executive: "Executive Summary"
+      # Translation
+      translate_br_us: "Translate BR/US"
+      translate_us_br: "Translate US/BR"
+      # Advanced Analysis
+      sentiment_analysis: "Sentiment Analysis"
+      keyword_extraction: "Keyword Extraction"
+      theme_identification: "Theme Identification"
+      structure_analysis: "Structure Analysis"
+      # Specific Processing
+      grammar_correction: "Grammar Correction"
+      text_simplification: "Text Simplification"
+      standard_formatting: "Standard Formatting"
+      # Reports
+      full_report: "Full Report"
+      executive_report: "Executive Report"
+      comparative_analysis: "Comparative Analysis"
+      quality_metrics: "Quality Metrics"
+    action_type_groups:
+      summary_types: "📋 Summary Types"
+      translation: "🌍 Translation"
+      advanced_analysis: "📊 Advanced Analysis"
+      text_processing: "� Text Processing"
+      reports: "📈 Reports"
     index:
       title: "Processed Files"
       show: "View file"
@@ -191,6 +221,7 @@ en-US:
       file_info: "File Information"
       file_label: "File"
       summary_type_label: "Summary Type"
+      action_type_label: "Action Type"
       status_label: "Status"
       created_at_label: "Created at"
       actions: "Actions"

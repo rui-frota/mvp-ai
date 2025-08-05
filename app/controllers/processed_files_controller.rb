@@ -71,6 +71,6 @@ class ProcessedFilesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def processed_file_params
-      params.require(:processed_file).permit(:document, :summary_type)
+      params.require(:processed_file).permit(:document, :action_type)
     end
 end
