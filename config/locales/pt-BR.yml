@@ -132,7 +132,7 @@ pt-BR:
       files_link: "Arquivos"
       go_to_files: "Ir para Arquivos"
     show:
-      back: "Voltar para solicitações de prompt"
+      back: "Voltar"
       destroy: "Excluir esta solicitação de prompt"
       title: "Solicitação de Prompt"
     notices:
@@ -209,7 +209,7 @@ pt-BR:
       prompts_link: "Prompts"
       go_to_prompts: "Ir para Prompts"
     show:
-      back: "Voltar para arquivos"
+      back: "Voltar"
       destroy: "Excluir arquivo"
       download: "Baixar resumo"
       reprocess: "Reprocessar"

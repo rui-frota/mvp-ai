@@ -131,7 +131,7 @@ en-US:
       files_link: "Files"
       go_to_files: "Go to Files"
     show:
-      back: "Back to prompt requests"
+      back: "Back"
       destroy: "Destroy this prompt request"
       title: "Prompt Request"
     notices:
@@ -208,7 +208,7 @@ en-US:
       prompts_link: "Prompts"
       go_to_prompts: "Go to Prompts"
     show:
-      back: "Back to files"
+      back: "Back"
       destroy: "Delete file"
       download: "Download summary"
       reprocess: "Reprocess"
