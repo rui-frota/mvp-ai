@@ -55,7 +55,7 @@
                   </div>
                   <%= t("prompt_requests.actions.#{prompt_request.action_type}") if prompt_request.action_type %>
                 </h6>
-                <span class="badge" style="background: rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem;">
+                <span class="badge <%= status_badge_class(prompt_request.status) %>" style="color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem;">
                   <%= t("prompt_requests.status.#{prompt_request.status}") if prompt_request.status %>
                 </span>
               </div>

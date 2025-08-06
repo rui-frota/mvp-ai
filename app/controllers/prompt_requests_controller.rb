@@ -48,13 +48,13 @@ class PromptRequestsController < ApplicationController
     output_moderation = ContentModerationService.moderate_output(raw_output)
     
     @prompt_request.output_text = output_moderation[:text]
-    @prompt_request.status = I18n.t('prompt_requests.status.pending')
+    @prompt_request.status = 'pending'
     @prompt_request.input_text = @prompt_request.input_text.strip if @prompt_request.input_text.present?
     @prompt_request.output_text = @prompt_request.output_text.strip if @prompt_request.output_text.present?
     
     error_message = I18n.t('prompt_requests.errors.processing_request')
-    @prompt_request.status = I18n.t('prompt_requests.status.completed') if @prompt_request.output_text.present? && @prompt_request.output_text != error_message
-    @prompt_request.status = I18n.t('prompt_requests.status.failed') if @prompt_request.output_text.blank? || @prompt_request.output_text == error_message
+    @prompt_request.status = 'completed' if @prompt_request.output_text.present? && @prompt_request.output_text != error_message
+    @prompt_request.status = 'failed' if @prompt_request.output_text.blank? || @prompt_request.output_text == error_message
     
     # Log de moderação para auditoria
     if !output_moderation[:approved]
