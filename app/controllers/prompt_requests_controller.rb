@@ -1,5 +1,11 @@
+require 'net/http'
+require 'socket'
+
 class PromptRequestsController < ApplicationController
   before_action :set_prompt_request, only: %i[ show edit update destroy ]
+
+  # Exceção customizada para erros de conexão com IA
+  class AIConnectionError < StandardError; end
 
   # GET /prompt_requests or /prompt_requests.json
   def index
@@ -42,23 +48,40 @@ class PromptRequestsController < ApplicationController
       @prompt_request.input_text
     end
     
-    raw_output = generate_output_text(prefixed_prompt)
-    
-    # 🛡️ GUARDRAILS: Moderação do output
-    output_moderation = ContentModerationService.moderate_output(raw_output)
-    
-    @prompt_request.output_text = output_moderation[:text]
-    @prompt_request.status = 'pending'
-    @prompt_request.input_text = @prompt_request.input_text.strip if @prompt_request.input_text.present?
-    @prompt_request.output_text = @prompt_request.output_text.strip if @prompt_request.output_text.present?
-    
-    error_message = I18n.t('prompt_requests.errors.processing_request')
-    @prompt_request.status = 'completed' if @prompt_request.output_text.present? && @prompt_request.output_text != error_message
-    @prompt_request.status = 'failed' if @prompt_request.output_text.blank? || @prompt_request.output_text == error_message
-    
-    # Log de moderação para auditoria
-    if !output_moderation[:approved]
-      Rails.logger.warn "🛡️ Output moderado - Riscos: #{output_moderation[:reasons].join(', ')} - Nível: #{output_moderation[:risk_level]}"
+    begin
+      raw_output = generate_output_text(prefixed_prompt)
+      
+      # 🛡️ GUARDRAILS: Moderação do output
+      output_moderation = ContentModerationService.moderate_output(raw_output)
+      
+      @prompt_request.output_text = output_moderation[:text]
+      @prompt_request.status = 'pending'
+      @prompt_request.input_text = @prompt_request.input_text.strip if @prompt_request.input_text.present?
+      @prompt_request.output_text = @prompt_request.output_text.strip if @prompt_request.output_text.present?
+      
+      error_message = I18n.t('prompt_requests.errors.processing_request')
+      @prompt_request.status = 'completed' if @prompt_request.output_text.present? && @prompt_request.output_text != error_message
+      @prompt_request.status = 'failed' if @prompt_request.output_text.blank? || @prompt_request.output_text == error_message
+      
+      # Log de moderação para auditoria
+      if !output_moderation[:approved]
+        Rails.logger.warn "🛡️ Output moderado - Riscos: #{output_moderation[:reasons].join(', ')} - Nível: #{output_moderation[:risk_level]}"
+      end
+      
+    rescue AIConnectionError => e
+      @prompt_request.status = 'failed'
+      @prompt_request.output_text = nil
+      
+      respond_to do |format|
+        if @prompt_request.save
+          format.html { redirect_to @prompt_request, alert: e.message }
+          format.json { render json: { error: e.message }, status: :service_unavailable }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @prompt_request.errors, status: :unprocessable_entity }
+        end
+      end
+      return
     end
 
     respond_to do |format|
@@ -108,13 +131,21 @@ class PromptRequestsController < ApplicationController
 
     # Method to generate output text based on the input prompt   
     def generate_output_text(prompt)
-      api_response = ApiClient.generate(prompt)
-      if api_response.is_a?(Hash) && api_response['response']
-        api_response['response'].to_s
-      elsif api_response.is_a?(String)
-        api_response.to_s
-      else
-        api_response['error'] || I18n.t('prompt_requests.errors.processing_request')
+      begin
+        api_response = ApiClient.generate(prompt)
+        if api_response.is_a?(Hash) && api_response['response']
+          api_response['response'].to_s
+        elsif api_response.is_a?(String)
+          api_response.to_s
+        else
+          api_response['error'] || I18n.t('prompt_requests.errors.processing_request')
+        end
+      rescue Errno::ECONNREFUSED, Net::TimeoutError, SocketError => e
+        Rails.logger.error "🤖 IA desconectada: #{e.message}"
+        raise AIConnectionError, I18n.t('prompt_requests.errors.ai_disconnected')
+      rescue StandardError => e
+        Rails.logger.error "Erro ao processar prompt: #{e.message}"
+        I18n.t('prompt_requests.errors.processing_request')
       end
     end
 

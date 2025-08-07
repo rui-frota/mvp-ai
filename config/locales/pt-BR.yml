@@ -135,6 +135,8 @@ pt-BR:
       back: "Voltar"
       destroy: "Excluir esta solicitação de prompt"
       title: "Solicitação de Prompt"
+      processing_title: "Erro ao processar solicitação"
+      processing_message: "Ocorreu um erro ao processar a solicitação. Tente novamente."
     notices:
       created: "Solicitação de prompt criada com sucesso."
       updated: "Solicitação de prompt atualizada com sucesso."
@@ -145,6 +147,7 @@ pt-BR:
       failed: "falhou"
     errors:
       processing_request: "Erro ao processar solicitação"
+      ai_disconnected: "🤖 Serviço de IA desconectado. Por favor, inicie o Ollama com 'ollama serve' e tente novamente."
       content_blocked: "Conteúdo bloqueado por medidas de segurança"
       content_too_long: "Texto muito longo (máximo %{max} caracteres)"
       offensive_content: "Conteúdo ofensivo detectado"
@@ -240,6 +243,7 @@ pt-BR:
       processing_file: "Erro ao processar arquivo"
       invalid_format: "Formato de arquivo inválido"
       file_too_large: "Arquivo muito grande"
+      ai_disconnected: "🤖 Serviço de IA desconectado. Por favor, inicie o Ollama com 'ollama serve' e tente novamente."
   helpers:
     submit: "Gerar solicitação"
     edit: "Editar"

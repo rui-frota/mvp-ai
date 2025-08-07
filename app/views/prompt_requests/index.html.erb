@@ -83,6 +83,10 @@
                       <div style="background: rgba(248, 250, 252, 0.7); border-radius: 8px; padding: 12px; border-left: 3px solid #8b5cf6; color: #374151; line-height: 1.5;">
                         <%= truncate(prompt_request.output_text, length: 150) %>
                       </div>
+                    <% elsif prompt_request.status == 'failed' %>
+                      <div style="background: rgba(254, 242, 242, 0.7); border-radius: 8px; padding: 12px; border-left: 3px solid #ef4444; color: #7f1d1d; font-style: italic;">
+                        <%= t('prompt_requests.errors.ai_disconnected') %>
+                      </div>
                     <% else %>
                       <div style="background: rgba(249, 250, 251, 0.7); border-radius: 8px; padding: 12px; color: #9ca3af; font-style: italic;">
                         <%= t('prompt_requests.index.pending_output') %>

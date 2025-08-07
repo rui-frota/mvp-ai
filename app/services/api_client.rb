@@ -3,7 +3,6 @@ require 'json'
 
 class ApiClient
   OLLAMA_URL = 'http://localhost:11434/api/generate'
-# binding.pry
   def self.generate(prompt, model: 'llama3')
     uri = URI(OLLAMA_URL)
     req = Net::HTTP::Post.new(uri, 'Content-Type' => 'application/json')

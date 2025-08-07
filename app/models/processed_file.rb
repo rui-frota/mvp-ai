@@ -1,5 +1,11 @@
+require 'net/http'
+require 'socket'
+
 class ProcessedFile < ApplicationRecord
   has_one_attached :document
+  
+  # Exceção customizada para erros de conexão com IA
+  class AIConnectionError < StandardError; end
   
   # Validações
   validates :document, presence: true
@@ -63,6 +69,9 @@ class ProcessedFile < ApplicationRecord
           Rails.logger.warn "API retornou vazio, usando simulação como fallback"
           summary_text = simulate_ai_processing(document_text)
         end
+      rescue Errno::ECONNREFUSED, Net::TimeoutError, SocketError => e
+        Rails.logger.error "🤖 IA desconectada ao processar arquivo: #{e.message}"
+        raise AIConnectionError, I18n.t('processed_files.errors.ai_disconnected')
       rescue => api_error
         Rails.logger.error "Erro na API: #{api_error.message}, usando simulação como fallback"
         summary_text = simulate_ai_processing(document_text)
@@ -75,6 +84,9 @@ class ProcessedFile < ApplicationRecord
       )
       
       true
+    rescue AIConnectionError => e
+      # Re-lança a exceção para o controller tratar
+      raise e
     rescue => e
       error_message = "Erro ao processar arquivo #{filename}: #{e.message}"
       Rails.logger.error error_message

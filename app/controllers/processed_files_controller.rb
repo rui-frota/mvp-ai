@@ -1,5 +1,11 @@
+require 'net/http'
+require 'socket'
+
 class ProcessedFilesController < ApplicationController
   before_action :set_processed_file, only: %i[ show edit update destroy ]
+
+  # Exceção customizada para erros de conexão com IA
+  class AIConnectionError < StandardError; end
 
   # GET /processed_files or /processed_files.json
   def index
@@ -23,20 +29,31 @@ class ProcessedFilesController < ApplicationController
   def create
     @processed_file = ProcessedFile.new(processed_file_params)
 
-    respond_to do |format|
-      if @processed_file.save
-        # Processar o arquivo em background (ou imediatamente para demo)
-        if @processed_file.process_document!
+    begin
+      respond_to do |format|
+        if @processed_file.save
+          @processed_file.process_document!
           format.html { redirect_to @processed_file, notice: t('processed_files.notices.created') }
           format.json { render :show, status: :created, location: @processed_file }
         else
-          format.html { redirect_to @processed_file, alert: t('processed_files.errors.processing_file') }
-          format.json { render json: { error: t('processed_files.errors.processing_file') }, status: :unprocessable_entity }
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @processed_file.errors, status: :unprocessable_entity }
         end
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @processed_file.errors, status: :unprocessable_entity }
       end
+    rescue ProcessedFile::AIConnectionError => e
+      @processed_file.status = 'failed'
+      @processed_file.summary = e.message
+      
+      respond_to do |format|
+        if @processed_file.save
+          format.html { redirect_to @processed_file, alert: e.message }
+          format.json { render json: { error: e.message }, status: :service_unavailable }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @processed_file.errors, status: :unprocessable_entity }
+        end
+      end
+      return
     end
   end
 

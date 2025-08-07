@@ -134,6 +134,8 @@ en-US:
       back: "Back"
       destroy: "Destroy this prompt request"
       title: "Prompt Request"
+      processing_title: "Error processing request"
+      processing_message: "An error occurred while processing the request. Please try again."
     notices:
       created: "Prompt request was successfully created."
       updated: "Prompt request was successfully updated."
@@ -144,6 +146,7 @@ en-US:
       failed: "failed"
     errors:
       processing_request: "Error processing request"
+      ai_disconnected: "🤖 AI service disconnected. Please start Ollama with 'ollama serve' and try again."
       content_blocked: "Content blocked by safety measures"
       content_too_long: "Text too long (maximum %{max} characters)"
       offensive_content: "Offensive content detected"
@@ -239,6 +242,7 @@ en-US:
       processing_file: "Error processing file"
       invalid_format: "Invalid file format"
       file_too_large: "File too large"
+      ai_disconnected: "🤖 AI service disconnected. Please start Ollama with 'ollama serve' and try again."
   helpers:
     submit: "Generate request"
     edit: "Edit"
