@@ -37,8 +37,8 @@ class ApiClient
       'bullet_points' => "Extraia os pontos principais do seguinte documento em formato de lista:\n\n#{document_text}",
       'executive' => "Faça um resumo executivo profissional do seguinte documento:\n\n#{document_text}",
       # Tradução
-      'translate_br_us' => "Traduza o seguinte documento do português brasileiro para o inglês americano:\n\n#{document_text}",
-      'translate_us_br' => "Traduza o seguinte documento do inglês americano para o português brasileiro:\n\n#{document_text}",
+      'translate_br_us' => "INSTRUÇÃO: Traduza APENAS o seguinte documento do português brasileiro para o inglês americano. Não adicione explicações, comentários ou perguntas. Apenas forneça a tradução direta e completa:\n\nDOCUMENTO PARA TRADUZIR:\n#{document_text}\n\nTRADUÇÃO:",
+      'translate_us_br' => "INSTRUÇÃO: Traduza APENAS o seguinte documento do inglês americano para o português brasileiro. Não adicione explicações, comentários ou perguntas. Apenas forneça a tradução direta e completa:\n\nDOCUMENTO PARA TRADUZIR:\n#{document_text}\n\nTRADUÇÃO:",
       # Análise Avançada
       'sentiment_analysis' => "Analise o sentimento do seguinte documento:\n\n#{document_text}",
       'keyword_extraction' => "Extraia as palavras-chave principais do seguinte documento:\n\n#{document_text}",

@@ -187,9 +187,9 @@ class PromptRequestsController < ApplicationController
       when 'code_review'
         "Revise o seguinte código e forneça sugestões de melhoria: #{input_text}"
       when 'translate_br_us'
-        "Traduza o seguinte texto do português brasileiro para o inglês americano: #{input_text}"
+        "INSTRUÇÃO: Traduza APENAS o seguinte texto do português brasileiro para o inglês americano. Não adicione explicações, comentários ou perguntas. Apenas forneça a tradução direta e completa:\n\nTEXTO PARA TRADUZIR:\n#{input_text}\n\nTRADUÇÃO:"
       when 'translate_us_br'
-        "Traduza o seguinte texto do inglês americano para o português brasileiro: #{input_text}"
+        "INSTRUÇÃO: Traduza APENAS o seguinte texto do inglês americano para o português brasileiro. Não adicione explicações, comentários ou perguntas. Apenas forneça a tradução direta e completa:\n\nTEXTO PARA TRADUZIR:\n#{input_text}\n\nTRADUÇÃO:"
       else
         input_text
       end

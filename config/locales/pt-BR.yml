@@ -100,6 +100,8 @@ pt-BR:
       submit_button: "Gerar solicitação"
       submit_tooltip: "Processar solicitação com inteligência artificial"
       processing: "Processando..."
+      ai_processing: "IA Processando..."
+      ai_processing_description: "Processando seu texto com inteligência artificial"
       input_required: "Por favor, digite um texto para processar."
     actions:
       answer: "Responder"
@@ -133,7 +135,7 @@ pt-BR:
       go_to_files: "Ir para Arquivos"
     show:
       back: "Voltar"
-      destroy: "Excluir esta solicitação de prompt"
+      destroy: "Excluir"
       title: "Solicitação de Prompt"
       processing_title: "Erro ao processar solicitação"
       processing_message: "Ocorreu um erro ao processar a solicitação. Tente novamente."
@@ -167,6 +169,8 @@ pt-BR:
       submit_button: "Processar com IA"
       file_too_large: "O arquivo é muito grande. O tamanho máximo permitido é 10MB."
       processing: "Processando..."
+      ai_processing: "IA Processando..."
+      ai_processing_description: "Analisando seu documento com inteligência artificial"
       select_file_alert: "Por favor, selecione um arquivo para processar."
     summary_types:
       detailed: "Resumo Detalhado"
@@ -213,7 +217,7 @@ pt-BR:
       go_to_prompts: "Ir para Prompts"
     show:
       back: "Voltar"
-      destroy: "Excluir arquivo"
+      destroy: "Excluir"
       download: "Baixar resumo"
       reprocess: "Reprocessar"
       default_title: "Documento Processado"

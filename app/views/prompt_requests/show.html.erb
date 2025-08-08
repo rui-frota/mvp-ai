@@ -123,8 +123,8 @@
       </div>
       
       <!-- Card de Ações -->
-      <div class="card border-0 shadow-lg" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%); backdrop-filter: blur(10px); border-radius: 16px;">
-        <div class="card-header border-0" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%); color: white; padding: 16px 20px; border-radius: 16px 16px 0 0;">
+      <div class="card border-0" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;">
+        <div class="card-header border-0" style="background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.9); padding: 16px 20px; border-radius: 16px 16px 0 0; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
           <h6 class="card-title mb-0 d-flex align-items-center">
             <div style="background: rgba(255,255,255,0.2); border-radius: 50%; padding: 6px; margin-right: 10px;">
               <i class="bi bi-gear" style="font-size: 1rem;"></i>
@@ -132,23 +132,17 @@
             Ações
           </h6>
         </div>
-        <div class="card-body" style="padding: 20px;">
-          <div class="d-grid gap-3">
+        <div class="card-body" style="padding: 24px;">
+          <div class="d-flex flex-column gap-3">
             <%= link_to prompt_requests_path, 
-              class: "btn btn-lg border-0 shadow-sm",
-              style: "background: rgba(107, 114, 128, 0.1); border: 1px solid rgba(107, 114, 128, 0.2); color: #6b7280; border-radius: 12px; padding: 12px 16px; transition: all 0.3s ease;",
-              onmouseover: "this.style.background='rgba(107, 114, 128, 0.2)'; this.style.transform='translateY(-1px)'",
-              onmouseout: "this.style.background='rgba(107, 114, 128, 0.1)'; this.style.transform='translateY(0)'" do %>
+              class: "btn-glassmorphism-dark btn-glassmorphism-lg btn-glassmorphism-block" do %>
               <i class="bi bi-arrow-left me-2"></i>
               <%= t('prompt_requests.show.back') %>
             <% end %>
             
             <%= button_to @prompt_request, 
               method: :delete,
-              class: "btn btn-lg border-0 shadow-sm",
-              style: "background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; border-radius: 12px; padding: 12px 16px; transition: all 0.3s ease;",
-              onmouseover: "this.style.background='rgba(239, 68, 68, 0.2)'; this.style.transform='translateY(-1px)'",
-              onmouseout: "this.style.background='rgba(239, 68, 68, 0.1)'; this.style.transform='translateY(0)'",
+              class: "btn-glassmorphism-danger btn-glassmorphism-lg btn-glassmorphism-block",
               confirm: t('helpers.are_you_sure') do %>
               <i class="bi bi-trash me-2"></i>
               <%= t('prompt_requests.show.destroy') %>
@@ -179,6 +173,18 @@
   /* Animação suave para o spinner */
   .spinner-border {
     animation: spinner-border 0.75s linear infinite;
+    z-index: 100 !important;
+    position: relative;
+  }
+  
+  /* Cards de loading com maior z-index */
+  .card .spinner-border {
+    z-index: 150 !important;
+  }
+  
+  /* Container de loading com z-index elevado */
+  .card-body .spinner-border {
+    z-index: 200 !important;
   }
   
   /* Melhorar espaçamento em telas menores */

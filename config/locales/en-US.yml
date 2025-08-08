@@ -99,6 +99,8 @@ en-US:
       submit_button: "Generate request"
       submit_tooltip: "Process request with artificial intelligence"
       processing: "Processing..."
+      ai_processing: "AI Processing..."
+      ai_processing_description: "Processing your text with artificial intelligence"
       input_required: "Please enter some text to process."
     actions:
       answer: "Answer"
@@ -132,7 +134,7 @@ en-US:
       go_to_files: "Go to Files"
     show:
       back: "Back"
-      destroy: "Destroy this prompt request"
+      destroy: "Delete"
       title: "Prompt Request"
       processing_title: "Error processing request"
       processing_message: "An error occurred while processing the request. Please try again."
@@ -166,6 +168,8 @@ en-US:
       submit_button: "Process with AI"
       file_too_large: "The file is too large. Maximum allowed size is 10MB."
       processing: "Processing..."
+      ai_processing: "AI Processing..."
+      ai_processing_description: "Analyzing your document with artificial intelligence"
       select_file_alert: "Please select a file to process."
     summary_types:
       detailed: "Detailed Summary"
@@ -212,7 +216,7 @@ en-US:
       go_to_prompts: "Go to Prompts"
     show:
       back: "Back"
-      destroy: "Delete file"
+      destroy: "Delete"
       download: "Download summary"
       reprocess: "Reprocess"
       default_title: "Processed Document"
