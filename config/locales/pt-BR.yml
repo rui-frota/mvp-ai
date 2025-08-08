@@ -160,7 +160,7 @@ pt-BR:
     form:
       errors_title: "%{count} erro(s) encontrado(s)"
       upload_document: "Enviar Documento"
-      file_tooltip: "Selecione um arquivo de texto, PDF, Word ou Markdown"
+      file_tooltip: "Selecione um arquivo de texto, PDF, txt ou Markdown"
       file_placeholder: "Escolher arquivo..."
       supported_formats: "Formatos suportados: .txt, .pdf, .md (máx. 10MB)"
       action_type_help: "Escolha o tipo de processamento que deseja aplicar ao seu documento"

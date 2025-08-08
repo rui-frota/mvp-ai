@@ -159,7 +159,7 @@ en-US:
     form:
       errors_title: "%{count} error(s) found"
       upload_document: "Upload Document"
-      file_tooltip: "Select a text, PDF, Word or Markdown file"
+      file_tooltip: "Select a text, PDF, txt or Markdown file"
       file_placeholder: "Choose file..."
       supported_formats: "Supported formats: .txt, .pdf, .md (max. 10MB)"
       summary_type_help: "Choose the type of summary that best fits your needs"
