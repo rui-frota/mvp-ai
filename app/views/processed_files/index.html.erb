@@ -97,16 +97,12 @@
         </div>
         <h3 style="color: #1f2937; margin-bottom: 12px; font-weight: 600;"><%= t('processed_files.index.no_files') %></h3>
         <p style="color: #6b7280; margin-bottom: 32px; font-size: 1.1rem;"><%= t('processed_files.index.upload_first') %></p>
-        <div class="d-flex gap-3 justify-content-center">
+        <div class="d-flex justify-content-center">
           <%= link_to new_processed_file_path, 
-            class: "btn-glassmorphism-primary btn-glassmorphism-lg" do %>
+            class: "btn-glassmorphism-primary-light btn-glassmorphism-lg",
+            style: "min-width: 200px;" do %>
             <i class="bi bi-plus-circle me-2"></i>
             <%= t('processed_files.index.new') %>
-          <% end %>
-          <%= link_to prompt_requests_path, 
-            class: "btn-glassmorphism-dark btn-glassmorphism-lg" do %>
-            <i class="bi bi-chat-dots me-2"></i>
-            <%= t('processed_files.index.go_to_prompts') %>
           <% end %>
         </div>
       </div>

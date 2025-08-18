@@ -195,6 +195,23 @@
   border-radius: 12px;
 }
 
+/* Size variants for light background versions */
+.btn-glassmorphism-primary-light.btn-glassmorphism-lg,
+.btn-glassmorphism-dark-light.btn-glassmorphism-lg {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.btn-glassmorphism-primary-light.btn-glassmorphism-sm,
+.btn-glassmorphism-dark-light.btn-glassmorphism-sm {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 12px;
+}
+
 /* Block variant */
 .btn-glassmorphism-block {
   width: 100%;
@@ -231,6 +248,71 @@
 /* Enhanced icon styling in action cards */
 .card-header .bi {
   filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+/* Special variants for light backgrounds (empty state cards) */
+.btn-glassmorphism-primary-light {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 16px;
+  color: white !important;
+  padding: 12px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 15px rgba(99, 102, 241, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-glassmorphism-primary-light:hover {
+  background: linear-gradient(135deg, #5b5fd1 0%, #7c52e6 50%, #d63384 100%);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 25px rgba(99, 102, 241, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-glassmorphism-dark-light {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.85) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(71, 85, 105, 0.4);
+  border-radius: 16px;
+  color: white !important;
+  padding: 12px 24px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 15px rgba(30, 41, 59, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-glassmorphism-dark-light:hover {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 
+    0 8px 25px rgba(30, 41, 59, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 /* Fix z-index issues with loading spinners */

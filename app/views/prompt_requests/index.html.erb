@@ -123,16 +123,12 @@
         </div>
         <h3 style="color: #1f2937; margin-bottom: 12px; font-weight: 600;"><%= t('prompt_requests.index.no_requests') %></h3>
         <p style="color: #6b7280; margin-bottom: 32px; font-size: 1.1rem;"><%= t('prompt_requests.index.create_first') %></p>
-        <div class="d-flex gap-3 justify-content-center">
+        <div class="d-flex justify-content-center">
           <%= link_to new_prompt_request_path, 
-            class: "btn-glassmorphism-primary btn-glassmorphism-lg" do %>
+            class: "btn-glassmorphism-primary-light btn-glassmorphism-lg",
+            style: "min-width: 200px;" do %>
             <i class="bi bi-plus-circle me-2"></i>
             <%= t('prompt_requests.index.new') %>
-          <% end %>
-          <%= link_to processed_files_path, 
-            class: "btn-glassmorphism-dark btn-glassmorphism-lg" do %>
-            <i class="bi bi-file-earmark-arrow-up me-2"></i>
-            <%= t('prompt_requests.index.go_to_files') %>
           <% end %>
         </div>
       </div>
